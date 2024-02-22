@@ -2,20 +2,31 @@
   "name": "notepad-monorepo",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "dotenv -- turbo run build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "update": "pnpm up -rL"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "dotenv-cli": "^7.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "prettier": "^3.1.1",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
+  },
+  "lint-staged": {
+    "**/*.+(js|jsx|ts|tsx)": [
+      "pnpm format"
+    ]
   }
 }
