@@ -8,9 +8,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./app/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
@@ -19,7 +17,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "postcss.config.js",
+    "postcss.config.js"
   ],
   "exclude": ["node_modules"]
 }
