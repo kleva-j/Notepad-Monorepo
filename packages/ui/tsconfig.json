@@ -4,11 +4,9 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "tailwind.config.ts", "postcss.config.js"],
   "exclude": ["node_modules", "dist"]
 }
