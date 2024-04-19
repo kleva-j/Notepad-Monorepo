@@ -29,5 +29,6 @@
       "dependsOn": ["^build"],
       "dotEnv": [".env.test.local", ".env.test", ".env"]
     }
-  }
+  },
+  "globalEnv": ["NEXT_PUBLIC_CONVEX_URL"]
 }
