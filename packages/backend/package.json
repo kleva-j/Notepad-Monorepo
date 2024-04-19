@@ -1,0 +1,17 @@
+{
+  "name": "@repo/backend",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "convex dev",
+    "setup": "convex dev --until-success"
+  },
+  "author": "Michael Obasi <kasmickleva@gmail.com> (@kleva-j)",
+  "license": "MIT",
+  "dependencies": {
+    "convex": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6"
+  }
+}
