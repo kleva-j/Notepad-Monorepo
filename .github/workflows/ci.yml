@@ -12,9 +12,14 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     # To use Remote Caching, uncomment the next lines and follow the steps below.
-    # env:
-    #  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-    #  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    env:
+     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+     NEXT_PUBLIC_CONVEX_URL: ${{ secrets.NEXT_PUBLIC_CONVEX_URL }}
+     CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+     CLERK_ISSUER_URL: ${{ secrets.CLERK_ISSUER_URL }}
+     CONVEX_DEPLOYMENT: ${{ secrets.CONVEX_DEPLOYMENT }}
+     CONVEX_URL: ${{ secrets.CONVEX_URL }}
+     TOGETHER_AI_API_KEY: ${{ secrets.TOGETHER_AI_API_KEY }}
 
     steps:
       - name: Check out code
