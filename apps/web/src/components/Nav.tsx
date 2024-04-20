@@ -5,6 +5,7 @@ import { containerVariants, svgVariants } from "@/lib/utils";
 import { ProjectLink } from "@/components/ProjectLink";
 import { Button } from "@repo/ui/components/ui/button";
 import { ProjectNav } from "@/components/ProjectNav";
+import { ModeToggle } from "@/components/ModeToggle";
 import { NavLink } from "@/components/Navlink";
 import { useEffect, useState } from "react";
 import {
@@ -116,6 +117,7 @@ export const Nav = () => {
             <div className="min-w-4 ml-2 border-yellow-600 border rounded-full aspect-square bg-yellow-700" />
           </ProjectLink>
         </div>
+        <ModeToggle className="my-auto bg-neutral-700/40 text-neutral-400 hover:text-neutral-100 hover:bg-neutral-700/30 transition-colors duration-100 rounded-xl" />
       </motion.nav>
       <AnimatePresence>
         {selectedProject && (
