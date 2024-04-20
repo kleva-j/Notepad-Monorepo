@@ -4,6 +4,7 @@ import "./globals.css";
 import type { PropsWithChildren } from "react";
 import type { Metadata } from "next";
 
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Inter } from "next/font/google";
 
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
@@ -17,9 +18,16 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: PropsWithChildren): JSX.Element {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ConvexClientProvider>{children}</ConvexClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
