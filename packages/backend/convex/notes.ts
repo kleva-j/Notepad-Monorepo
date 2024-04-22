@@ -55,7 +55,7 @@ export const getNotes = queryWithUser({
     if (!userId) return null;
     const notes = await ctx.db
       .query("notes")
-      .filter((q) => q.eq(q.field("userId"), userId))
+      .withIndex("by_userId", (q) => q.eq("userId", userId))
       .collect();
     return notes;
   },
