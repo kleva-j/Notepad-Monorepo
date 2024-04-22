@@ -9,7 +9,8 @@
   "author": "Michael Obasi <kasmickleva@gmail.com> (@kleva-j)",
   "license": "MIT",
   "dependencies": {
-    "convex": "^1.8.0"
+    "convex": "^1.8.0",
+    "convex-helpers": "^0.1.33"
   },
   "devDependencies": {
     "@types/node": "^20.10.6"
