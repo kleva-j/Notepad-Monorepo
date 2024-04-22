@@ -2,7 +2,7 @@ import type { PropsWithChildren } from "react";
 
 import { Nav } from "@/components/Nav";
 
-export function Layout({ children }: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <main className="flex w-full h-screen relative">
       <Nav />
