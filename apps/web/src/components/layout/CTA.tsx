@@ -14,11 +14,7 @@ export const CTA = () => {
             Try Flowbite Platform for 30 days. No credit card required.
           </p>
           <Button asChild className="rounded-full">
-            <Link
-              href="#"
-            >
-              Free trial for 30 days
-            </Link>
+            <Link href="#">Free trial for 30 days</Link>
           </Button>
         </div>
       </div>

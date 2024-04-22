@@ -1,6 +1,11 @@
+"use client";
+
 import { Button } from "@repo/ui/components/ui/button";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Logo } from "@/components/icons/Logo";
+
+import Link from "next/link";
+import { Authenticated, Unauthenticated } from "convex/react";
 
 export const Header = () => {
   return (
@@ -9,9 +14,18 @@ export const Header = () => {
         <Logo />
 
         <div className="flex flex-row gap-x-4">
-          <Button variant="default" className="rounded-full">
-            Sign In
-          </Button>
+          <Authenticated>
+            <Button className="rounded-full" asChild>
+              <Link href="/console">Dashboard</Link>
+            </Button>
+          </Authenticated>
+
+          <Unauthenticated>
+            <Button className="rounded-full" asChild>
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+          </Unauthenticated>
+
           <ModeToggle variant="ghost" className="rounded-full" />
         </div>
       </div>
