@@ -11,7 +11,7 @@ export const CTA = () => {
             Start your free trial today
           </h2>
           <p className="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg">
-            Try Flowbite Platform for 30 days. No credit card required.
+            Try Notepad-GPT Platform for 30 days. No credit card required.
           </p>
           <Button asChild className="rounded-full">
             <Link href="#">Free trial for 30 days</Link>

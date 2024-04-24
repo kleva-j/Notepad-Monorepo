@@ -16,7 +16,7 @@ export const Header = () => {
         <div className="flex flex-row gap-x-4">
           <Authenticated>
             <Button className="rounded-full" asChild>
-              <Link href="/console">Dashboard</Link>
+              <Link href="/dashboard">Dashboard</Link>
             </Button>
           </Authenticated>
 
