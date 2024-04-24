@@ -32,7 +32,7 @@ export const Hero = () => {
         </p>
         <Authenticated>
           <Button size="lg" className="text-lg rounded-full">
-            <Link href="/console">Dashboard</Link>
+            <Link href="/dashboard">Dashboard</Link>
           </Button>
         </Authenticated>
 
