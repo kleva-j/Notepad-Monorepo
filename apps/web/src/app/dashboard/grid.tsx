@@ -17,24 +17,33 @@ export const BentoGrid = ({ className, children }: BentoGridProps) => {
   );
 };
 
+export enum Position {
+  top = "top",
+  bottom = "bottom",
+}
+
 export type BentoGridItemProps = {
   className?: string;
   title?: string | ReactNode;
   description?: string | ReactNode;
   header?: ReactNode;
   icon?: ReactNode;
+  headerPosition?: Position;
 };
 
-export const BentoGridItem = (props: BentoGridItemProps) => {
+export const BentoGridItem = ({
+  headerPosition = Position.top,
+  ...props
+}: BentoGridItemProps) => {
   const { className, title, description, header, icon } = props;
   return (
     <div
       className={cn(
-        "row-span-1 rounded-lg group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-neutral-950/20 dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4",
+        "row-span-1 rounded-lg group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-neutral-950/20 dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col",
         className
       )}
     >
-      {header}
+      {headerPosition == Position.top && header}
       <div className="group-hover/bento:translate-x-2 transition duration-200">
         {icon}
         <div className="font-sans text-xl font-bold text-neutral-600 dark:text-neutral-200 mb-2 mt-2">
@@ -44,6 +53,7 @@ export const BentoGridItem = (props: BentoGridItemProps) => {
           {description}
         </div>
       </div>
+      {headerPosition == Position.bottom && header}
     </div>
   );
 };
