@@ -23,11 +23,6 @@ const data: INoteItem[] = [
     subTasks: 3,
     date: "2 hrs ago",
   },
-  {
-    title: "Ipsum dolor sit amet consectetur adipiscing elit",
-    subTasks: 3,
-    date: "2 hrs ago",
-  },
 ];
 
 const NoteItem = ({ title, subTasks, date }: INoteItem) => {
@@ -38,14 +33,14 @@ const NoteItem = ({ title, subTasks, date }: INoteItem) => {
       </span>
       <div className="w-full flex justify-between items-center">
         <div>
-          <p className="text-sm font-medium text-gray-800 dark:text-white">
+          <p className="text-sm font-light text-gray-800 dark:text-white">
             {title}
           </p>
           <p className="text-xs text-gray-500 dark:text-neutral-500">
             {subTasks} sub-tasks
           </p>
         </div>
-        <Badge className="text-xs font-medium bg-gray-100 text-gray-800 dark:bg-neutral-800 dark:text-neutral-200 hover:bg-gray-200 dark:hover:bg-neutral-700">
+        <Badge className="text-xs font-normal bg-gray-100 text-gray-800 dark:bg-neutral-800 dark:text-neutral-200 hover:bg-gray-200 dark:hover:bg-neutral-700">
           {date}
         </Badge>
       </div>

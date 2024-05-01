@@ -1,9 +1,10 @@
 import { BentoGrid, BentoGridItem, Position } from "@/app/dashboard/grid";
 import { PullRequestIcon } from "@/components/icons/PullRequest";
+import { AudioLinesIcon } from "@/components/icons/AudioLines";
 import { RecordingIcon } from "@/components/icons/Recording";
 import { AudioRecordList } from "@/app/dashboard/AudioList";
 import { NoteList } from "@/app/dashboard/NotesList";
-import { Skeleton } from "@/components/Skeleton";
+import { TaskList } from "@/app/dashboard/TaskList";
 
 export default function Page() {
   return (
@@ -12,7 +13,10 @@ export default function Page() {
         <BentoGridItem
           title="Recent Voice Notes"
           header={<NoteList />}
-          className="md:col-span-2 space-y-4"
+          className="md:col-span-2 justify-start gap-y-4"
+          description="View your recent voice notes"
+          headerPosition={Position.bottom}
+          icon={<AudioLinesIcon className="h-5 w-5 text-neutral-500" />}
         />
         <BentoGridItem
           title="Notifications"
@@ -29,8 +33,9 @@ export default function Page() {
         />
         <BentoGridItem
           title="Action Items"
-          description="View all your action items in one place"
-          header={<Skeleton />}
+          description="View your recent action items."
+          headerPosition={Position.bottom}
+          header={<TaskList />}
           className="md:col-span-2 space-y-4"
           icon={<PullRequestIcon className="h-4 w-4 text-neutral-500" />}
         />
