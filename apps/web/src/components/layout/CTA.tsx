@@ -1,6 +1,5 @@
 import { Button } from "@repo/ui/components/ui/button";
-
-import Link from "next/link";
+import { Signup } from "@/routes";
 
 export const CTA = () => {
   return (
@@ -14,7 +13,7 @@ export const CTA = () => {
             Try Notepad-GPT Platform for 30 days. No credit card required.
           </p>
           <Button asChild className="rounded-full">
-            <Link href="#">Free trial for 30 days</Link>
+            <Signup.Link>Free trial for 30 days</Signup.Link>
           </Button>
         </div>
       </div>
