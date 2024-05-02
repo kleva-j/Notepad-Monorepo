@@ -6,6 +6,7 @@ import { projectNavVariants } from "@/lib/utils";
 import { NavLink } from "@/components/Navlink";
 import { cn } from "@repo/ui/lib/utils";
 import { motion } from "framer-motion";
+import { Dashboard } from "@/routes";
 import {
   AdjustmentsHorizontalIcon,
   ArrowTrendingUpIcon,
@@ -15,9 +16,7 @@ import {
   XMarkIcon,
   BoltIcon,
   UserIcon,
-} from "@heroicons/react/24/outline"
-
-import Link from "next/link";
+} from "@heroicons/react/24/outline";
 
 type ProjectNavProps = {
   setSelectedProject: (project: string | null) => void;
@@ -36,7 +35,7 @@ export const ProjectNav: FC<ProjectNavProps> = (props) => {
       variants={projectNavVariants}
       transition={{ duration: 0.25, ease: "easeInOut" }}
       className={cn(
-        "bg-neutral-900 flex flex-col absolute p-5 gap-8 h-full w-64 ml-0 border-r border-neutral-800",
+        "bg-neutral-900 flex flex-col z-[8] absolute p-5 gap-8 h-full w-64 ml-0 border-r border-neutral-800",
         { "left-64": isOpen, "left-20": !isOpen }
       )}
     >
@@ -54,40 +53,40 @@ export const ProjectNav: FC<ProjectNavProps> = (props) => {
         className="px-3 py-2 tracking-wide rounded-lg bg-neutral-600/40 text-neutral-100"
       />
       <div className="flex flex-col gap-3">
-        <NavLink name="Progress" href="#">
+        <NavLink name="Progress" link={Dashboard.Link}>
           <ArrowTrendingUpIcon className="stroke-[0.75] stroke-inherit min-w-8 w-8" />
         </NavLink>
-        <NavLink name="Team Members" href="#">
+        <NavLink name="Team Members" link={Dashboard.Link}>
           <UserGroupIcon className="stroke-[0.75] stroke-inherit min-w-8 w-8" />
         </NavLink>
-        <NavLink name="In Review" href="#">
+        <NavLink name="In Review" link={Dashboard.Link}>
           <PencilIcon className="stroke-[0.75] stroke-inherit min-w-8 w-8" />
         </NavLink>
-        <NavLink name="In Progress" href="#">
+        <NavLink name="In Progress" link={Dashboard.Link}>
           <BoltIcon className="stroke-[0.75] stroke-inherit min-w-8 w-8" />
         </NavLink>
-        <NavLink name="Up Next" href="#">
+        <NavLink name="Up Next" link={Dashboard.Link}>
           <CursorArrowRaysIcon className="stroke-[0.75] stroke-inherit min-w-8 w-8" />
         </NavLink>
-        <NavLink name="Project Settings" href="#">
+        <NavLink name="Project Settings" link={Dashboard.Link}>
           <AdjustmentsHorizontalIcon className="stroke-[0.75] stroke-inherit min-w-8 w-8" />
         </NavLink>
       </div>
 
       <div className="flex flex-col gap-5">
         <h1 className="tracking-wide text-neutral-300">Team Members</h1>
-        <Link href="#" className="flex flex-row gap-3 place-items-center">
+        <Dashboard.Link className="flex flex-row gap-3 place-items-center">
           <UserIcon className="w-8 p-1 rounded-full stroke-2 stroke-rose-800 bg-rose-200/70" />
           <p className="tracking-wide text-neutral-400">Steve Jobs</p>
-        </Link>
-        <Link href="#" className="flex flex-row gap-3 place-items-center">
+        </Dashboard.Link>
+        <Dashboard.Link className="flex flex-row gap-3 place-items-center">
           <UserIcon className="w-8 p-1 rounded-full stroke-2 stroke-emerald-800 bg-emerald-200/70" />
           <p className="tracking-wide text-neutral-400">Bill Gates</p>
-        </Link>
-        <Link href="#" className="flex flex-row gap-3 place-items-center">
+        </Dashboard.Link>
+        <Dashboard.Link className="flex flex-row gap-3 place-items-center">
           <UserIcon className="w-8 p-1 rounded-full stroke-2 stroke-indigo-800 bg-indigo-200/70" />
           <p className="tracking-wide text-neutral-400">Jeff Bezos</p>
-        </Link>
+        </Dashboard.Link>
       </div>
     </motion.nav>
   );

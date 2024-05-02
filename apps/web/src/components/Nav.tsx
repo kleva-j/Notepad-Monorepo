@@ -8,6 +8,7 @@ import { ProjectNav } from "@/components/ProjectNav";
 import { ModeToggle } from "@/components/ModeToggle";
 import { NavLink } from "@/components/Navlink";
 import { useEffect, useState } from "react";
+import { Dashboard } from "@/routes";
 import {
   DocumentCheckIcon,
   Square2StackIcon,
@@ -73,23 +74,23 @@ export const Nav = () => {
         </div>
 
         <div className="flex flex-col gap-y-3">
-          <NavLink name="Dashboard" href="#">
+          <NavLink name="Dashboard" link={Dashboard.Link}>
             <ChartBarIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Projects" href="#">
+          <NavLink name="Projects" link={Dashboard.Link}>
             <Square2StackIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Tasks" href="#">
+          <NavLink name="Tasks" link={Dashboard.Link}>
             <DocumentCheckIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Reporting" href="#">
+          <NavLink name="Reporting" link={Dashboard.Link}>
             <ChartPieIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Users" href="#">
+          <NavLink name="Users" link={Dashboard.Link}>
             <UsersIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
         </div>
@@ -97,21 +98,28 @@ export const Nav = () => {
         <div className="flex flex-col gap-y-3">
           <ProjectLink
             name="Virtual Reality"
+            link={Dashboard.Link}
             setSelectedProject={setSelectedProject}
           >
             <div className="min-w-4 ml-2 border-pink-600 border rounded-full aspect-square bg-pink-700" />
           </ProjectLink>
           <ProjectLink
             name="Apple Vision Pro"
+            link={Dashboard.Link}
             setSelectedProject={setSelectedProject}
           >
             <div className="min-w-4 ml-2 border-indigo-600 border rounded-full aspect-square bg-indigo-700" />
           </ProjectLink>
-          <ProjectLink name="Porsche" setSelectedProject={setSelectedProject}>
+          <ProjectLink
+            name="Porsche"
+            setSelectedProject={setSelectedProject}
+            link={Dashboard.Link}
+          >
             <div className="min-w-4 ml-2 border-cyan-600 border rounded-full aspect-square bg-cyan-700" />
           </ProjectLink>
           <ProjectLink
             name="Secret Project"
+            link={Dashboard.Link}
             setSelectedProject={setSelectedProject}
           >
             <div className="min-w-4 ml-2 border-yellow-600 border rounded-full aspect-square bg-yellow-700" />

@@ -1,10 +1,9 @@
+import { Dashboard } from "@/routes";
 import {
   BreadcrumbSeparator,
   BreadcrumbItem,
   BreadcrumbLink,
 } from "@repo/ui/components/ui/breadcrumb";
-
-import Link from "next/link";
 
 export default function Page() {
   return (
@@ -12,7 +11,7 @@ export default function Page() {
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <BreadcrumbLink asChild>
-          <Link href="#">Dashboard</Link>
+          <Dashboard.Link>Dashboard</Dashboard.Link>
         </BreadcrumbLink>
       </BreadcrumbItem>
     </>

@@ -4,7 +4,8 @@ import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { TypewriterEffectSmooth } from "@/components/TypewriterEffect";
 import { Button } from "@repo/ui/components/ui/button";
 
-import Link from "next/link";
+
+import { Dashboard, Signin } from "@/routes";
 
 const words2 = [
   { text: "AI-Powered" },
@@ -18,9 +19,13 @@ export const Hero = () => {
       <div className="container py-8 mx-auto text-center flex flex-col justify-between items-center gap-y-2">
         <div className="relative flex gap-x-1 select-none items-center whitespace-nowrap rounded-full border-[0.5px] border-zinc-500 py-1.5 px-3 font-sans text-xs text-gray-500 w-max mx-auto">
           <span className="font-light">Powered by</span>
-          <span className="font-bold text-amber-700 dark:text-teal-500">Together.ai</span>
+          <span className="font-bold text-amber-700 dark:text-teal-500">
+            Together.ai
+          </span>
           <span className="font-light">and</span>
-          <span className="font-bold text-amber-700 dark:text-teal-500">Convex</span>
+          <span className="font-bold text-amber-700 dark:text-teal-500">
+            Convex
+          </span>
           <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40" />
         </div>
 
@@ -32,20 +37,20 @@ export const Hero = () => {
         </p>
         <Authenticated>
           <Button size="lg" className="text-lg rounded-full">
-            <Link href="/dashboard">Dashboard</Link>
+            <Dashboard.Link>Dashboard</Dashboard.Link>
           </Button>
         </Authenticated>
 
         <Unauthenticated>
           <Button size="lg" className="text-lg rounded-full">
-            <Link href="/sign-in">Get started</Link>
+            <Signin.Link>Get started</Signin.Link>
           </Button>
         </Unauthenticated>
 
         <AuthLoading>
           <Button size="lg" className="text-lg rounded-full" disabled>
             <svg
-              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              className="animate-spin -ml-1 mr-3 h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
