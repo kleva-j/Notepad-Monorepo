@@ -9,7 +9,7 @@ const defaultInfo = {
 import * as HomeRoute from "@/app/page.info";
 import * as DashboardRoute from "@/app/dashboard/page.info";
 import * as DashboardHeaderRoute from "@/app/dashboard/@header/page.info";
-import * as DashboardSearchRoute from "@/app/dashboard/@header/search/page.info";
+import * as DashboardSearchRoute from "@/app/dashboard/search/page.info";
 import * as SigninRoute from "@/app/sign-in/[[...sign-in]]/page.info";
 import * as SignupRoute from "@/app/sign-up/[[...sign-up]]/page.info";
 
@@ -35,7 +35,7 @@ export const DashboardHeader = makeRoute(
   }
 );
 export const DashboardSearch = makeRoute(
-  "/dashboard/@header/search",
+  "/dashboard/search",
   {
     ...defaultInfo,
     ...DashboardSearchRoute.Route
