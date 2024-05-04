@@ -20,6 +20,7 @@
     "@repo/ui": "workspace:*",
     "convex": "^1.11.2",
     "framer-motion": "^11.1.7",
+    "lucide-react": "^0.367.0",
     "next": "^14.2.2",
     "next-themes": "^0.3.0",
     "query-string": "^9.0.0",
