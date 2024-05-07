@@ -1,17 +1,17 @@
-import { DashboardRecords } from "@/routes";
+import { SettingsAppearance } from "@/routes";
 import {
   BreadcrumbSeparator,
   BreadcrumbItem,
   BreadcrumbLink,
 } from "@repo/ui/components/ui/breadcrumb";
 
-export default function Page() {
+export default function AppearancePage() {
   return (
     <>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <BreadcrumbLink asChild>
-          <DashboardRecords.Link>Records</DashboardRecords.Link>
+          <SettingsAppearance.Link>Appearance</SettingsAppearance.Link>
         </BreadcrumbLink>
       </BreadcrumbItem>
     </>

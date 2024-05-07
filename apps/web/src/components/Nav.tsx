@@ -8,7 +8,12 @@ import { ProjectNav } from "@/components/ProjectNav";
 import { ModeToggle } from "@/components/ModeToggle";
 import { NavLink } from "@/components/Navlink";
 import { useEffect, useState } from "react";
-import { Dashboard } from "@/routes";
+import {
+  DashboardSettings,
+  DashboardRecords,
+  DashboardTasks,
+  Dashboard,
+} from "@/routes";
 import {
   DocumentCheckIcon,
   Square2StackIcon,
@@ -78,15 +83,15 @@ export const Nav = () => {
             <ChartBarIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Projects" link={Dashboard.Link}>
+          <NavLink name="Records" link={DashboardRecords.Link}>
             <Square2StackIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Tasks" link={Dashboard.Link}>
+          <NavLink name="Tasks" link={DashboardTasks.Link}>
             <DocumentCheckIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Reporting" link={Dashboard.Link}>
+          <NavLink name="Settings" link={DashboardSettings.Link}>
             <ChartPieIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 

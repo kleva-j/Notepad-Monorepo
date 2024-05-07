@@ -1,4 +1,4 @@
-import { DashboardRecords } from "@/routes";
+import { SettingsDisplay } from "@/routes";
 import {
   BreadcrumbSeparator,
   BreadcrumbItem,
@@ -11,7 +11,7 @@ export default function Page() {
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <BreadcrumbLink asChild>
-          <DashboardRecords.Link>Records</DashboardRecords.Link>
+          <SettingsDisplay.Link>Display</SettingsDisplay.Link>
         </BreadcrumbLink>
       </BreadcrumbItem>
     </>

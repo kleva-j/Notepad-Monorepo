@@ -1,6 +1,6 @@
 import { z } from "zod";
 
 export const Route = {
-  name: "DashboardHeader",
+  name: "SettingsAppearance",
   params: z.object({}),
 };
