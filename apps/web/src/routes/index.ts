@@ -9,7 +9,14 @@ const defaultInfo = {
 import * as HomeRoute from "@/app/page.info";
 import * as DashboardRoute from "@/app/dashboard/page.info";
 import * as DashboardHeaderRoute from "@/app/dashboard/@header/page.info";
-import * as DashboardSearchRoute from "@/app/dashboard/search/page.info";
+import * as DashboardHeaderRecordsRoute from "@/app/dashboard/@header/records/page.info";
+import * as DashboardHeaderSettingsRoute from "@/app/dashboard/@header/settings/page.info";
+import * as DashboardHeaderTasksRoute from "@/app/dashboard/@header/tasks/page.info";
+import * as DashboardRecordsRoute from "@/app/dashboard/records/page.info";
+import * as DashboardSettingsRoute from "@/app/dashboard/settings/page.info";
+import * as SettingsAppearanceRoute from "@/app/dashboard/settings/appearance/page.info";
+import * as SettingsDisplayRoute from "@/app/dashboard/settings/display/page.info";
+import * as DashboardTasksRoute from "@/app/dashboard/tasks/page.info";
 import * as SigninRoute from "@/app/sign-in/[[...sign-in]]/page.info";
 import * as SignupRoute from "@/app/sign-up/[[...sign-up]]/page.info";
 
@@ -34,11 +41,60 @@ export const DashboardHeader = makeRoute(
     ...DashboardHeaderRoute.Route
   }
 );
-export const DashboardSearch = makeRoute(
-  "/dashboard/search",
+export const DashboardHeaderRecords = makeRoute(
+  "/dashboard/@header/records",
   {
     ...defaultInfo,
-    ...DashboardSearchRoute.Route
+    ...DashboardHeaderRecordsRoute.Route
+  }
+);
+export const DashboardHeaderSettings = makeRoute(
+  "/dashboard/@header/settings",
+  {
+    ...defaultInfo,
+    ...DashboardHeaderSettingsRoute.Route
+  }
+);
+export const DashboardHeaderTasks = makeRoute(
+  "/dashboard/@header/tasks",
+  {
+    ...defaultInfo,
+    ...DashboardHeaderTasksRoute.Route
+  }
+);
+export const DashboardRecords = makeRoute(
+  "/dashboard/records",
+  {
+    ...defaultInfo,
+    ...DashboardRecordsRoute.Route
+  }
+);
+export const DashboardSettings = makeRoute(
+  "/dashboard/settings",
+  {
+    ...defaultInfo,
+    ...DashboardSettingsRoute.Route
+  }
+);
+export const SettingsAppearance = makeRoute(
+  "/dashboard/settings/appearance",
+  {
+    ...defaultInfo,
+    ...SettingsAppearanceRoute.Route
+  }
+);
+export const SettingsDisplay = makeRoute(
+  "/dashboard/settings/display",
+  {
+    ...defaultInfo,
+    ...SettingsDisplayRoute.Route
+  }
+);
+export const DashboardTasks = makeRoute(
+  "/dashboard/tasks",
+  {
+    ...defaultInfo,
+    ...DashboardTasksRoute.Route
   }
 );
 export const Signin = makeRoute(

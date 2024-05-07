@@ -11,7 +11,7 @@ export default function Page() {
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <BreadcrumbLink asChild>
-          <DashboardRecords.Link>Records</DashboardRecords.Link>
+          <DashboardRecords.Link>Tasks</DashboardRecords.Link>
         </BreadcrumbLink>
       </BreadcrumbItem>
     </>
