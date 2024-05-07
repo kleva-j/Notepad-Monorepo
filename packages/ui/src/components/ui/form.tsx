@@ -1,3 +1,5 @@
+"use client";
+
 import * as LabelPrimitive from "@radix-ui/react-label";
 
 import { createContext, forwardRef, useContext, useId } from "react";
