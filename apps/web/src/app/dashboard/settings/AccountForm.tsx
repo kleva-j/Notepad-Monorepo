@@ -2,14 +2,16 @@
 
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { Calendar } from "@repo/ui/components/ui/calendar";
-import { toast } from "@repo/ui/components/ui/use-toast";
 import { CalendarIcon, CheckIcon } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@repo/ui/components/ui/input";
+import { useUser } from "@clerk/clerk-react";
 import { useForm } from "react-hook-form";
 import { cn } from "@repo/ui/lib/utils";
+import { Loader2 } from "lucide-react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import {
@@ -50,44 +52,48 @@ const languages = [
 const accountFormSchema = z.object({
   name: z
     .string()
-    .min(2, {
-      message: "Name must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Name must not be longer than 30 characters.",
-    }),
-  dob: z.date({
-    required_error: "A date of birth is required.",
-  }),
-  language: z.string({
-    required_error: "Please select a language.",
-  }),
+    .min(2, { message: "Name must be at least 2 characters." })
+    .max(30, { message: "Name must not be longer than 30 characters." }),
+  dob: z.date({ required_error: "A date of birth is required." }),
+  language: z.string({ required_error: "Please select a language." }),
 });
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<AccountFormValues> = {
-  name: "John Doe",
-  dob: new Date("2023-01-23"),
-  language: languages[0].value,
-};
+type PartialValues = Partial<AccountFormValues>;
 
 export function AccountForm() {
+  let defaultValues: PartialValues = {};
+  const { isLoaded, user } = useUser();
+
+  if (isLoaded && user) {
+    const { dob, language } = user.unsafeMetadata as PartialValues;
+    defaultValues = {
+      name: `${user.firstName} ${user.lastName}`,
+      dob: dob || new Date("2023-01-23"),
+      language: language || languages[0].value,
+    };
+  }
+
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues,
   });
 
-  function onSubmit(data: AccountFormValues) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit({ name, dob, language }: AccountFormValues) {
+    if (isLoaded && user) {
+      const [firstName, lastName] = name.split(" ");
+      const promise = user.update({
+        firstName,
+        lastName,
+        unsafeMetadata: { dob, language },
+      });
+      toast.promise(promise, {
+        loading: "Saving...",
+        success: "Profile updated",
+        error: "Could not update profile",
+      });
+    }
   }
 
   return (
@@ -225,7 +231,10 @@ export function AccountForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Update account</Button>
+        <Button type="submit" disabled={!form.formState.isValid || !isLoaded}>
+          {!isLoaded && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Update account
+        </Button>
       </form>
     </Form>
   );
