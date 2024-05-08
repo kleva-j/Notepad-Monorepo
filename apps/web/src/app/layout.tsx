@@ -5,6 +5,7 @@ import type { PropsWithChildren } from "react";
 import type { Metadata } from "next";
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { Toaster } from "@/components/Sonner";
 import { Inter } from "next/font/google";
 
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
@@ -27,6 +28,7 @@ function RootLayout({ children }: PropsWithChildren): JSX.Element {
           disableTransitionOnChange
         >
           <ConvexClientProvider>{children}</ConvexClientProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
