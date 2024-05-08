@@ -1,10 +1,11 @@
 "use client";
 
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/ui/radio-group";
-import { toast } from "@repo/ui/components/ui/use-toast";
 import { Button } from "@repo/ui/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useTheme } from "next-themes";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import {
@@ -16,6 +17,7 @@ import {
   FormItem,
   Form,
 } from "@repo/ui/components/ui/form";
+import { useUser } from "@clerk/clerk-react";
 
 const appearanceFormSchema = z.object({
   theme: z.enum(["light", "dark"], {
@@ -24,26 +26,34 @@ const appearanceFormSchema = z.object({
 });
 
 type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
-
-const defaultValues: Partial<AppearanceFormValues> = {
-  theme: "light",
-};
+type PartialValues = Partial<AppearanceFormValues>;
 
 export function AppearanceForm() {
+  let defaultValues: PartialValues = {};
+  const { setTheme } = useTheme();
+  const { isLoaded, user } = useUser();
+
+  if (isLoaded && user) {
+    const { theme } = user.unsafeMetadata as PartialValues;
+    defaultValues = { theme: theme || "light", };
+  }
+
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues,
   });
 
-  function onSubmit(data: AppearanceFormValues) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  function onSubmit({ theme }: AppearanceFormValues) {
+    if (isLoaded && user) {
+      const promise = user.update({
+        unsafeMetadata: { theme },
+      });
+      toast.promise(promise, {
+        loading: "Saving...",
+        success: "Theme updated",
+        error: "Could not update appearance",
+      });
+    }
   }
 
   return (
@@ -60,7 +70,10 @@ export function AppearanceForm() {
               </FormDescription>
               <FormMessage />
               <RadioGroup
-                onValueChange={field.onChange}
+                onValueChange={(value) => {
+                  setTheme(value);
+                  field.onChange(value);
+                }}
                 defaultValue={field.value}
                 className="grid max-w-md grid-cols-2 gap-8 pt-2"
               >
