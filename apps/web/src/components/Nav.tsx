@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { containerVariants, svgVariants } from "@/lib/utils";
-import { ProjectLink } from "@/components/ProjectLink";
 import { Button } from "@repo/ui/components/ui/button";
 import { ProjectNav } from "@/components/ProjectNav";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -19,7 +18,6 @@ import {
   Square2StackIcon,
   ChartBarIcon,
   ChartPieIcon,
-  UsersIcon,
 } from "@heroicons/react/24/outline";
 
 export const Nav = () => {
@@ -94,42 +92,8 @@ export const Nav = () => {
           <NavLink name="Settings" link={DashboardSettings.Link}>
             <ChartPieIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
-
-          <NavLink name="Users" link={Dashboard.Link}>
-            <UsersIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
-          </NavLink>
         </div>
 
-        <div className="flex flex-col gap-y-3">
-          <ProjectLink
-            name="Virtual Reality"
-            link={Dashboard.Link}
-            setSelectedProject={setSelectedProject}
-          >
-            <div className="min-w-4 ml-2 border-pink-600 border rounded-full aspect-square bg-pink-700" />
-          </ProjectLink>
-          <ProjectLink
-            name="Apple Vision Pro"
-            link={Dashboard.Link}
-            setSelectedProject={setSelectedProject}
-          >
-            <div className="min-w-4 ml-2 border-indigo-600 border rounded-full aspect-square bg-indigo-700" />
-          </ProjectLink>
-          <ProjectLink
-            name="Porsche"
-            setSelectedProject={setSelectedProject}
-            link={Dashboard.Link}
-          >
-            <div className="min-w-4 ml-2 border-cyan-600 border rounded-full aspect-square bg-cyan-700" />
-          </ProjectLink>
-          <ProjectLink
-            name="Secret Project"
-            link={Dashboard.Link}
-            setSelectedProject={setSelectedProject}
-          >
-            <div className="min-w-4 ml-2 border-yellow-600 border rounded-full aspect-square bg-yellow-700" />
-          </ProjectLink>
-        </div>
         <ModeToggle className="my-auto bg-neutral-700/40 text-neutral-400 hover:text-neutral-100 hover:bg-neutral-700/30 transition-colors duration-100 rounded-xl" />
       </motion.nav>
       <AnimatePresence>
