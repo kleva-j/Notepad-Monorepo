@@ -1,9 +1,10 @@
 /*
 Derived from: https://www.flightcontrol.dev/blog/fix-nextjs-routing-to-have-full-type-safety
 */
+import { Link } from 'next-view-transitions';
 import { z } from "zod";
+
 import queryString from "query-string";
-import Link from "next/link";
 
 type LinkProps = Parameters<typeof Link>[0];
 

@@ -4,8 +4,6 @@ import type { FC, PropsWithChildren } from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Button } from "@repo/ui/components/ui/button";
 
-import Link from "next/link";
-
 type ProjectLinkProps = PropsWithChildren & {
   name: string;
   link: any;
