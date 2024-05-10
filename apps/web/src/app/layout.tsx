@@ -5,6 +5,7 @@ import type { PropsWithChildren } from "react";
 import type { Metadata } from "next";
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ViewTransitions } from "next-view-transitions";
 import { Toaster } from "@/components/Sonner";
 import { Inter } from "next/font/google";
 
@@ -19,19 +20,21 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: PropsWithChildren): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ConvexClientProvider>{children}</ConvexClientProvider>
-          <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <body className={inter.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ConvexClientProvider>{children}</ConvexClientProvider>
+            <Toaster />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
 
