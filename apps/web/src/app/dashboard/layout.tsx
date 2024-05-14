@@ -8,7 +8,7 @@ export default function Layout({ children, header }: LayoutProps) {
   return (
     <main className="flex w-full h-screen relative">
       <Nav />
-      <section className="flex flex-col w-full ml-20 bg-neutral-200/50 dark:bg-neutral-900">
+      <section className="flex flex-col w-full ml-20 bg-muted/90 dark:bg-neutral-900">
         {header}
         {children}
       </section>
