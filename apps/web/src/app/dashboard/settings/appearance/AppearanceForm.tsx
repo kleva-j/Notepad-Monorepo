@@ -3,8 +3,12 @@
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/ui/radio-group";
 import { Button } from "@repo/ui/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useUser } from "@clerk/clerk-react";
 import { useForm } from "react-hook-form";
+import { cn } from "@repo/ui/lib/utils";
 import { useTheme } from "next-themes";
+import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -17,44 +21,62 @@ import {
   FormItem,
   Form,
 } from "@repo/ui/components/ui/form";
-import { useUser } from "@clerk/clerk-react";
+
+const colorSchemes = ["neutral", "pink", "cyan", "indigo", "yellow"] as const;
 
 const appearanceFormSchema = z.object({
-  theme: z.enum(["light", "dark"], {
-    required_error: "Please select a theme.",
-  }),
+  theme: z
+    .enum(["light", "dark"], {
+      required_error: "Please select a theme.",
+    })
+    .default("light"),
+  colorScheme: z
+    .enum(colorSchemes, {
+      required_error: "Please select a color scheme.",
+    })
+    .default("neutral"),
 });
 
-type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
-type PartialValues = Partial<AppearanceFormValues>;
+type AppearanceFormInput = z.input<typeof appearanceFormSchema>;
+type AppearanceFormOutput = z.infer<typeof appearanceFormSchema>;
+
+let formValues: AppearanceFormInput = {
+  theme: "light",
+  colorScheme: "neutral",
+};
 
 export function AppearanceForm() {
-  let defaultValues: PartialValues = {};
   const { setTheme } = useTheme();
   const { isLoaded, user } = useUser();
 
-  if (isLoaded && user) {
-    const { theme } = user.unsafeMetadata as PartialValues;
-    defaultValues = { theme: theme || "light", };
-  }
-
-  const form = useForm<AppearanceFormValues>({
+  const form = useForm<AppearanceFormOutput>({
     resolver: zodResolver(appearanceFormSchema),
-    defaultValues,
+    defaultValues: formValues,
   });
 
-  function onSubmit({ theme }: AppearanceFormValues) {
+  function onSubmit({ theme, colorScheme }: AppearanceFormOutput) {
     if (isLoaded && user) {
+      const metadata = user.unsafeMetadata;
       const promise = user.update({
-        unsafeMetadata: { theme },
+        unsafeMetadata: { ...metadata, theme, colorScheme },
       });
       toast.promise(promise, {
         loading: "Saving...",
-        success: "Theme updated",
+        success: "Theme and color scheme updated",
         error: "Could not update appearance",
       });
     }
   }
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      const { theme, colorScheme } = user.unsafeMetadata as AppearanceFormInput;
+      form.reset({
+        theme: theme || "light",
+        colorScheme: colorScheme || "neutral",
+      });
+    }
+  }, [isLoaded, user]);
 
   return (
     <Form {...form}>
@@ -64,7 +86,7 @@ export function AppearanceForm() {
           name="theme"
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel>Theme</FormLabel>
+              <FormLabel className="text-base">Theme</FormLabel>
               <FormDescription>
                 Select the theme for the dashboard.
               </FormDescription>
@@ -78,7 +100,14 @@ export function AppearanceForm() {
                 className="grid max-w-md grid-cols-2 gap-8 pt-2"
               >
                 <FormItem>
-                  <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
+                  <FormLabel
+                    className={cn(
+                      "[&:has([data-state=checked])>div]:border-primary",
+                      {
+                        // "[&_>_div]:border-primary": field.value === "light",
+                      }
+                    )}
+                  >
                     <FormControl>
                       <RadioGroupItem value="light" className="sr-only" />
                     </FormControl>
@@ -104,7 +133,14 @@ export function AppearanceForm() {
                   </FormLabel>
                 </FormItem>
                 <FormItem>
-                  <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
+                  <FormLabel
+                    className={cn(
+                      "[&:has([data-state=checked])>div]:border-primary",
+                      {
+                        // "[&_>_div]:border-primary": field.value === "dark",
+                      }
+                    )}
+                  >
                     <FormControl>
                       <RadioGroupItem value="dark" className="sr-only" />
                     </FormControl>
@@ -134,7 +170,158 @@ export function AppearanceForm() {
           )}
         />
 
-        <Button type="submit">Update preferences</Button>
+        <FormField
+          control={form.control}
+          name="colorScheme"
+          render={({ field }) => (
+            <FormItem className="space-y-1">
+              <FormLabel className="text-base">Color Scheme</FormLabel>
+              <FormDescription>
+                Select the theme for the dashboard.
+              </FormDescription>
+              <FormMessage />
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="flex gap-y-3 pt-2"
+              >
+                <FormItem>
+                  <FormLabel
+                    className={cn(
+                      "p-1 flex justify-center items-center rounded-xl relative border border-neutral-300 dark:border-neutral-600 w-10 h-10",
+                      {
+                        "border-primary dark:border-neutral-200":
+                          field.value === "neutral",
+                      }
+                    )}
+                  >
+                    <FormControl>
+                      <RadioGroupItem value="neutral" className="sr-only" />
+                    </FormControl>
+                    <div
+                      className={cn(
+                        "size-4 border rounded-full aspect-square border-neutral-600 bg-neutral-700",
+                        {
+                          "border-primary dark:border-neutral-200":
+                            field.value === "neutral",
+                        }
+                      )}
+                    />
+                  </FormLabel>
+                </FormItem>
+                <FormItem>
+                  <FormLabel
+                    className={cn(
+                      "p-1 flex justify-center items-center rounded-xl relative border border-neutral-300 dark:border-neutral-600 w-10 h-10",
+                      {
+                        "border-primary dark:border-neutral-200":
+                          field.value === "pink",
+                      }
+                    )}
+                  >
+                    <FormControl>
+                      <RadioGroupItem value="pink" className="sr-only" />
+                    </FormControl>
+                    <div
+                      className={cn(
+                        "size-4 border rounded-full aspect-square border-pink-600 bg-pink-700",
+                        {
+                          "border-primary dark:border-neutral-200":
+                            field.value === "pink",
+                        }
+                      )}
+                    />
+                  </FormLabel>
+                </FormItem>
+                <FormItem>
+                  <FormLabel
+                    className={cn(
+                      "p-1 flex justify-center items-center rounded-xl relative border border-neutral-300 dark:border-neutral-600 w-10 h-10",
+                      {
+                        "border-primary dark:border-neutral-200":
+                          field.value === "cyan",
+                      }
+                    )}
+                  >
+                    <FormControl>
+                      <RadioGroupItem value="cyan" className="sr-only" />
+                    </FormControl>
+                    <div
+                      className={cn(
+                        "size-4 border rounded-full aspect-square border-cyan-600 bg-cyan-700",
+                        {
+                          "border-primary dark:border-neutral-200":
+                            field.value === "cyan",
+                        }
+                      )}
+                    />
+                  </FormLabel>
+                </FormItem>
+                <FormItem>
+                  <FormLabel
+                    className={cn(
+                      "p-1 flex justify-center items-center rounded-xl relative border border-neutral-300 dark:border-neutral-600 w-10 h-10",
+                      {
+                        "border-primary dark:border-neutral-200":
+                          field.value === "indigo",
+                      }
+                    )}
+                  >
+                    <FormControl>
+                      <RadioGroupItem value="indigo" className="sr-only" />
+                    </FormControl>
+                    <div
+                      className={cn(
+                        "size-4 border rounded-full aspect-square border-indigo-600 bg-indigo-700",
+                        {
+                          "border-primary dark:border-neutral-200":
+                            field.value === "indigo",
+                        }
+                      )}
+                    />
+                  </FormLabel>
+                </FormItem>
+                <FormItem>
+                  <FormLabel
+                    className={cn(
+                      "p-1 flex justify-center items-center rounded-xl relative border border-neutral-300 dark:border-neutral-600 w-10 h-10",
+                      {
+                        "border-primary dark:border-neutral-200":
+                          field.value === "yellow",
+                      }
+                    )}
+                  >
+                    <FormControl>
+                      <RadioGroupItem value="yellow" className="sr-only" />
+                    </FormControl>
+                    <div
+                      className={cn(
+                        "size-4 border rounded-full aspect-square border-yellow-600 bg-yellow-700",
+                        {
+                          "border-primary dark:border-neutral-200":
+                            field.value === "yellow",
+                        }
+                      )}
+                    />
+                  </FormLabel>
+                </FormItem>
+              </RadioGroup>
+            </FormItem>
+          )}
+        />
+
+        <Button
+          type="submit"
+          disabled={
+            !form.formState.isValid ||
+            !form.formState.isDirty ||
+            form.formState.isLoading ||
+            !isLoaded
+          }
+        >
+          {!isLoaded && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Update appearance
+        </Button>
       </form>
     </Form>
   );
