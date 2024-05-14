@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { containerVariants, svgVariants } from "@/lib/utils";
+import { LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { ProjectNav } from "@/components/ProjectNav";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -16,8 +17,6 @@ import {
 import {
   DocumentCheckIcon,
   Square2StackIcon,
-  ChartBarIcon,
-  ChartPieIcon,
 } from "@heroicons/react/24/outline";
 
 export const Nav = () => {
@@ -48,7 +47,7 @@ export const Nav = () => {
         variants={containerVariants}
         animate={containerControls}
         initial="close"
-        className="bg-neutral-900 flex flex-col absolute p-5 top-0 left-0 gap-20 z-10 h-full shadow shadow-neutral-600"
+        className="bg-neutral-900 flex flex-col fixed p-5 top-0 left-0 gap-20 z-10 h-full shadow shadow-neutral-600"
       >
         <div className="flex flex-row justify-between place-items-center w-full">
           <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-700 rounded-full" />
@@ -78,7 +77,7 @@ export const Nav = () => {
 
         <div className="flex flex-col gap-y-3">
           <NavLink name="Dashboard" link={Dashboard.Link}>
-            <ChartBarIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+            <LayoutDashboard className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
           <NavLink name="Records" link={DashboardRecords.Link}>
@@ -90,7 +89,7 @@ export const Nav = () => {
           </NavLink>
 
           <NavLink name="Settings" link={DashboardSettings.Link}>
-            <ChartPieIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+            <Settings className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
         </div>
 
