@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  SettingsAppearance,
-  DashboardSettings,
-  SettingsDisplay,
-} from "@/routes";
+import { SettingsAppearance, DashboardSettings } from "@/routes";
 import { cn } from "@repo/ui/lib/utils";
 
 import { usePathname } from "next/navigation";
@@ -29,13 +25,6 @@ export const SettingsNav = () => {
       >
         Appearance
       </SettingsAppearance.Link>
-      <SettingsDisplay.Link
-        className={cn({
-          "text-primary font-semibold": currentPath === "display",
-        })}
-      >
-        Display
-      </SettingsDisplay.Link>
     </nav>
   );
 };
