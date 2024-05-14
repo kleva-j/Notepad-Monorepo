@@ -10,6 +10,7 @@ import { useUser } from "@clerk/clerk-react";
 import { useForm } from "react-hook-form";
 import { cn } from "@repo/ui/lib/utils";
 import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -53,40 +54,41 @@ const accountFormSchema = z.object({
   name: z
     .string()
     .min(2, { message: "Name must be at least 2 characters." })
-    .max(30, { message: "Name must not be longer than 30 characters." }),
-  dob: z.date({ required_error: "A date of birth is required." }),
-  language: z.string({ required_error: "Please select a language." }),
+    .max(30, { message: "Name must not be longer than 30 characters." })
+    .default(""),
+  dob: z
+    .date({ required_error: "A date of birth is required." })
+    .default(new Date()),
+  language: z
+    .string({ required_error: "Please select a language." })
+    .default(languages[0].value),
 });
 
-type AccountFormValues = z.infer<typeof accountFormSchema>;
+type AccountFormOutput = z.infer<typeof accountFormSchema>;
+type AccountFormInput = z.input<typeof accountFormSchema>;
 
-type PartialValues = Partial<AccountFormValues>;
+const formValues: AccountFormInput = {
+  name: "",
+  language: "en",
+  dob: new Date(),
+};
 
 export function AccountForm() {
-  let defaultValues: PartialValues = {};
   const { isLoaded, user } = useUser();
 
-  if (isLoaded && user) {
-    const { dob, language } = user.unsafeMetadata as PartialValues;
-    defaultValues = {
-      name: `${user.firstName} ${user.lastName}`,
-      dob: dob || new Date("2023-01-23"),
-      language: language || languages[0].value,
-    };
-  }
-
-  const form = useForm<AccountFormValues>({
+  const form = useForm<AccountFormOutput>({
     resolver: zodResolver(accountFormSchema),
-    defaultValues,
+    defaultValues: formValues,
   });
 
-  async function onSubmit({ name, dob, language }: AccountFormValues) {
+  async function onSubmit({ name, dob, language }: AccountFormOutput) {
     if (isLoaded && user) {
+      const metadata = user.unsafeMetadata;
       const [firstName, lastName] = name.split(" ");
       const promise = user.update({
         firstName,
         lastName,
-        unsafeMetadata: { dob, language },
+        unsafeMetadata: { ...metadata, dob, language },
       });
       toast.promise(promise, {
         loading: "Saving...",
@@ -95,6 +97,18 @@ export function AccountForm() {
       });
     }
   }
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      const { dob, language } = user.unsafeMetadata as AccountFormInput;
+      const name = `${user.firstName} ${user.lastName}`;
+      form.reset({
+        name: name || formValues.name,
+        dob: dob || formValues.dob,
+        language: language || formValues.language,
+      });
+    }
+  }, [isLoaded, user]);
 
   return (
     <Form {...form}>
@@ -110,6 +124,7 @@ export function AccountForm() {
                   placeholder="Your name"
                   {...field}
                   className="max-w-md"
+                  disabled={!isLoaded || !user}
                 />
               </FormControl>
               <FormDescription>
@@ -125,7 +140,7 @@ export function AccountForm() {
           name="dob"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel className="w-fit">Date of birth</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -135,6 +150,7 @@ export function AccountForm() {
                         "w-[240px] pl-3 text-left font-normal",
                         !field.value && "text-muted-foreground"
                       )}
+                      disabled={!isLoaded || !user}
                     >
                       {field.value ? (
                         format(field.value, "PPP")
@@ -169,7 +185,7 @@ export function AccountForm() {
           name="language"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Language</FormLabel>
+              <FormLabel className="w-fit">Language</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -180,6 +196,7 @@ export function AccountForm() {
                         "w-[200px] justify-between",
                         !field.value && "text-muted-foreground"
                       )}
+                      disabled={!isLoaded || !user}
                     >
                       {field.value
                         ? languages.find(
@@ -231,7 +248,7 @@ export function AccountForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={!form.formState.isValid || !isLoaded}>
+        <Button type="submit" disabled={!form.formState.isDirty || !isLoaded}>
           {!isLoaded && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Update account
         </Button>
