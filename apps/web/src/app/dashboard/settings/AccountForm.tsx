@@ -217,12 +217,7 @@ export function AccountForm() {
                           <CommandItem
                             value={language.label}
                             key={language.value}
-                            onSelect={() => {
-                              form.setValue("language", language.value);
-                              console.log("Got here", {
-                                values: form.getValues(),
-                              });
-                            }}
+                            onSelect={() => form.setValue("language", language.value)}
                             className="text-primary"
                           >
                             <CheckIcon
