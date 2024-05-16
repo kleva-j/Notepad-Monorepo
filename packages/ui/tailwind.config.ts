@@ -3,6 +3,10 @@ import type { Config } from "tailwindcss";
 import TailwindAnimate from "tailwindcss-animate";
 import SharedConfig from "@repo/tailwind-config";
 
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 const config = {
   presets: [SharedConfig],
   content: [
@@ -71,14 +75,44 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        gradient: {
+          to: { "background-position": "200% center" },
+        },
+        "animated-gradient": {
+          to: {
+            backgroundPosition: "var(--bg-size) 0",
+          },
+        },
+        shimmer: {
+          "0%, 90%, 100%": {
+            "background-position": "calc(-100% - var(--shimmer-width)) 0",
+          },
+          "30%, 60%": {
+            "background-position": "calc(100% + var(--shimmer-width)) 0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "animated-gradient": "gradient 8s linear infinite",
+        gradient: "gradient 8s linear infinite",
+        shimmer: "shimmer 8s infinite",
       },
     },
   },
-  plugins: [TailwindAnimate],
+  plugins: [TailwindAnimate, addVariablesForColors],
 } satisfies Config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
 
 export default config;
