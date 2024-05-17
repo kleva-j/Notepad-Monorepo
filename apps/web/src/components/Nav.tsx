@@ -5,7 +5,6 @@ import { containerVariants, svgVariants } from "@/lib/utils";
 import { LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { ProjectNav } from "@/components/ProjectNav";
-import { ModeToggle } from "@/components/ModeToggle";
 import { NavLink } from "@/components/Navlink";
 import { useEffect, useState } from "react";
 import {
@@ -50,7 +49,7 @@ export const Nav = () => {
         className="bg-neutral-900 flex flex-col fixed p-5 top-0 left-0 gap-20 z-10 h-full shadow shadow-neutral-600"
       >
         <div className="flex flex-row justify-between place-items-center w-full">
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-700 rounded-full" />
+          <div className="w-10 h-10 rounded-full" />
           <Button
             size="icon"
             className="bg-transparent hover:bg-transparent"
@@ -93,7 +92,6 @@ export const Nav = () => {
           </NavLink>
         </div>
 
-        <ModeToggle className="my-auto bg-neutral-700/40 text-neutral-400 hover:text-neutral-100 hover:bg-neutral-700/30 transition-colors duration-100 rounded-xl" />
       </motion.nav>
       <AnimatePresence>
         {selectedProject && (
