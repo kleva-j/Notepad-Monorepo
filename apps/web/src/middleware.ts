@@ -1,14 +1,10 @@
-import { createRouteMatcher } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(["/waitlist(.*)", "/"]);
+const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
 
-export function middleware(req: NextRequest) {
-  const reqUrl = new URL(req.nextUrl);
-  const redirectUrl = new URL("/waitlist", reqUrl);
-  if (isPublicRoute(req)) return NextResponse.next();
-  return NextResponse.redirect(redirectUrl);
-}
+export default clerkMiddleware((auth, req) => {
+  if (isProtectedRoute(req)) auth().protect();
+});
 
 export const config = {
   matcher: [
