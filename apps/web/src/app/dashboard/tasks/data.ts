@@ -1,4 +1,10 @@
+import { TableTask } from "@/app/dashboard/tasks/TableColumn";
 import { Payment } from "@/app/dashboard/tasks/ListColumn";
+import { getRandomDate } from "@/lib/utils";
+
+import ShortUniqueId from 'short-unique-id';
+
+const uid = new ShortUniqueId();
 
 export const data: Payment[] = [
   {
@@ -30,6 +36,109 @@ export const data: Payment[] = [
     amount: 721,
     status: "failed",
     email: "carmella@hotmail.com",
+  },
+];
+
+export const TableData: TableTask[] = [
+  {
+    id: "1",
+    title: "Look into render bug in dashboard",
+    column: "backlog",
+    status: "pending",
+    priority: "urgent",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "2",
+    title: "SOX compliance checklist",
+    column: "backlog",
+    status: "doing",
+    priority: "low",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "3",
+    title: "[SPIKE] Migrate to Azure",
+    column: "backlog",
+    status: "done",
+    priority: "normal",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "4",
+    title: "Document Notifications service",
+    column: "backlog",
+    status: "pending",
+    priority: "normal",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "5",
+    title: "Research DB options for new microservice",
+    column: "todo",
+    status: "done",
+    priority: "low",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "6",
+    title: "Postmortem for outage",
+    column: "todo",
+    status: "pending",
+    priority: "urgent",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "7",
+    title: "Sync with product on Q3 roadmap",
+    column: "todo",
+    status: "pending",
+    priority: "urgent",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "8",
+    title: "Refactor context providers to use Zustand",
+    column: "in progress",
+    status: "doing",
+    priority: "urgent",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "9",
+    title: "Add logging to daily CRON",
+    column: "in progress",
+    status: "doing",
+    priority: "urgent",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
+  },
+  {
+    id: "10",
+    title: "Set up DD dashboards for Lambda listener",
+    column: "completed",
+    status: "done",
+    priority: "urgent",
+    recordId: uid.rnd(15),
+    createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
+    tags: [],
   },
 ];
 
