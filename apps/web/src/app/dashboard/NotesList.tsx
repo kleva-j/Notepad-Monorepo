@@ -23,6 +23,11 @@ const data: INoteItem[] = [
     subTasks: 3,
     date: "2 hrs ago",
   },
+  {
+    title: "lorem ipsum dolor sit adipiscing elit",
+    subTasks: 3,
+    date: "2 hrs ago",
+  },
 ];
 
 const NoteItem = ({ title, subTasks, date }: INoteItem) => {

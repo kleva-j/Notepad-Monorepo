@@ -32,14 +32,12 @@ export default function Layout({ children }: PropsWithChildren) {
       </Breadcrumb>
       <div className="flex gap-x-4 ml-auto items-center">
         <SearchButton />
-        <Button className="rounded-full">
+        <Button className="rounded-full" size="sm">
           <PlusIcon className="w-5 h-5 mr-2" />
-          New Note
+          Record New
         </Button>
-        <div className="relative flex items-center">
-          <UserButton />
-          <span className="absolute top-0 end-0 block size-2 rounded-full ring-2 ring-white bg-amber-500 dark:ring-neutral-900"></span>
-        </div>
+
+        <UserButton />
       </div>
     </header>
   );
