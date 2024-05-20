@@ -2,10 +2,11 @@
 
 import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { containerVariants, svgVariants } from "@/lib/utils";
-import { LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { ProjectNav } from "@/components/ProjectNav";
+import { LayoutDashboard } from "lucide-react";
 import { NavLink } from "@/components/Navlink";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   DashboardSettings,
@@ -13,9 +14,11 @@ import {
   DashboardTasks,
   Dashboard,
 } from "@/routes";
+
 import {
   DocumentCheckIcon,
-  Square2StackIcon,
+  Cog6ToothIcon,
+  FolderIcon,
 } from "@heroicons/react/24/outline";
 
 export const Nav = () => {
@@ -39,6 +42,9 @@ export const Nav = () => {
     setIsOpen(!isOpen);
     setSelectedProject(null);
   };
+
+  const pathname = usePathname();
+  const currentPath = pathname?.split("/").pop() as string;
 
   return (
     <>
@@ -75,23 +81,38 @@ export const Nav = () => {
         </div>
 
         <div className="flex flex-col gap-y-3">
-          <NavLink name="Dashboard" link={Dashboard.Link}>
+          <NavLink
+            name="Dashboard"
+            link={Dashboard.Link}
+            isActive={currentPath === "dashboard"}
+          >
             <LayoutDashboard className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Records" link={DashboardRecords.Link}>
-            <Square2StackIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+          <NavLink
+            name="Records"
+            link={DashboardRecords.Link}
+            isActive={currentPath === "records"}
+          >
+            <FolderIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Tasks" link={DashboardTasks.Link}>
+          <NavLink
+            name="Tasks"
+            link={DashboardTasks.Link}
+            isActive={currentPath === "tasks"}
+          >
             <DocumentCheckIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
-          <NavLink name="Settings" link={DashboardSettings.Link}>
-            <Settings className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+          <NavLink
+            name="Settings"
+            link={DashboardSettings.Link}
+            isActive={["settings", "appearance"].includes(currentPath)}
+          >
+            <Cog6ToothIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
         </div>
-
       </motion.nav>
       <AnimatePresence>
         {selectedProject && (
