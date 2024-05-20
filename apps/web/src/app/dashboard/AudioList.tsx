@@ -15,7 +15,7 @@ export const AudioRecordItem = () => (
 export const AudioRecordList = () => {
   return (
     <ul className="flex flex-col my-0 list-inside gap-y-3">
-      {[...Array(4).keys()].map((_, index) => (
+      {[...Array(5).keys()].map((_, index) => (
         <AudioRecordItem key={index} />
       ))}
     </ul>

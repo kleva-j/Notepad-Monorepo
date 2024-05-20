@@ -70,7 +70,7 @@ const data = [
 export const TaskList = () => {
   return (
     <ul className="flex flex-col divide-y divide-gray-300 dark:divide-neutral-700 border rounded border-gray-300 dark:border-neutral-700">
-      {data.slice(0, 4).map((item) => (
+      {data.slice(0, 5).map((item) => (
         <TaskItem key={item.id} {...item} />
       ))}
     </ul>

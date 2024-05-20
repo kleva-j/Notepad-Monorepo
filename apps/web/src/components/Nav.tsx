@@ -17,6 +17,7 @@ import {
 
 import {
   DocumentCheckIcon,
+  FolderOpenIcon,
   Cog6ToothIcon,
   FolderIcon,
 } from "@heroicons/react/24/outline";
@@ -94,7 +95,11 @@ export const Nav = () => {
             link={DashboardRecords.Link}
             isActive={currentPath === "records"}
           >
-            <FolderIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+            {currentPath === "records" ? (
+              <FolderOpenIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+            ) : (
+              <FolderIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+            )}
           </NavLink>
 
           <NavLink
