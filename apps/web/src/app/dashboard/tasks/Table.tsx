@@ -1,11 +1,11 @@
 "use client";
 
+import { DataTableFacetedFilter } from "@/app/dashboard/tasks/TableFacetedFilter";
 import { TableData, priorities, statuses } from "@/app/dashboard/tasks/data";
 import { Columns } from "@/app/dashboard/tasks/TableColumn";
-import { Separator } from "@repo/ui/components/ui/separator";
-import { ChevronDown, Cross, PlusIcon } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
+import { ChevronDown, Cross } from "lucide-react";
 import { useState } from "react";
 import {
   getPaginationRowModel,
@@ -33,17 +33,12 @@ import {
   Table,
 } from "@repo/ui/components/ui/table";
 
-import { DataTableFacetedFilter } from "./TableFacetedFilter";
-
 export function TableView() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [pagination, setPagination] = useState({
-    pageIndex: 0, //initial page index
-    pageSize: 5, //default page size
-  });
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5 });
 
   const table = useReactTable({
     data: TableData,
@@ -66,18 +61,19 @@ export function TableView() {
     },
   });
 
-  const isFiltered = table.getState().columnFilters.length > 0
+  const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4 justify-between gap-x-4">
-        <div className="flex items-center gap-x-4 flex-1 max-w-md">
+      <div className="flex items-center pb-4 justify-between gap-x-4">
+        <div className="flex items-center gap-x-4 flex-1">
           <Input
             placeholder="Filter titles..."
             value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("title")?.setFilterValue(event.target.value)
             }
+            className="max-w-[300px]"
           />
 
           {table.getColumn("status") && (
@@ -97,52 +93,43 @@ export function TableView() {
           )}
 
           {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <Cross className="ml-2 h-4 w-4" />
-          </Button>
-        )}
+            <Button
+              variant="ghost"
+              onClick={() => table.resetColumnFilters()}
+              className="h-8 px-2 lg:px-3"
+            >
+              Reset
+              <Cross className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </div>
 
-        <div className="flex gap-x-3 items-center">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Columns <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Separator orientation="vertical" className="h-9" />
-
-          <Button className="" size="sm">
-            <PlusIcon className="h-4 w-4 mr-1" />
-            New Task
-          </Button>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              Columns <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <div className="rounded-md border">

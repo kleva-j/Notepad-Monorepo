@@ -1,5 +1,3 @@
-"use client";
-
 import { MoreHorizontal, ArrowUpDown, Flag } from "lucide-react";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { Button } from "@repo/ui/components/ui/button";
