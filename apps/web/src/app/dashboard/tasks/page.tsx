@@ -5,7 +5,7 @@ import { ListView } from "@/app/dashboard/tasks/List";
 import {
   AlignVerticalDistributeStart,
   AlignStartHorizontal,
-  Grid3X3
+  Grid3X3,
 } from "lucide-react";
 
 import {
@@ -19,7 +19,7 @@ export default function TasksPage() {
   return (
     <main className="flex min-h-[calc(100vh_-_theme(spacing.20))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
       <div className="mx-auto grid w-full max-w-[80rem] gap-2">
-        <h1 className="text-3xl font-semibold">Task lists</h1>
+        <h1 className="text-3xl font-medium">Tasks</h1>
       </div>
       <div className="mx-auto w-full max-w-[80rem]">
         <Tabs defaultValue="kanban">

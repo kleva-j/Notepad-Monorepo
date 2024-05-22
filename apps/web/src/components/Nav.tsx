@@ -1,10 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
+import { LayoutDashboard, AlignStartHorizontal } from "lucide-react";
 import { containerVariants, svgVariants } from "@/lib/utils";
 import { Button } from "@repo/ui/components/ui/button";
 import { ProjectNav } from "@/components/ProjectNav";
-import { LayoutDashboard } from "lucide-react";
 import { NavLink } from "@/components/Navlink";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,9 +14,7 @@ import {
   DashboardTasks,
   Dashboard,
 } from "@/routes";
-
 import {
-  DocumentCheckIcon,
   FolderOpenIcon,
   Cog6ToothIcon,
   FolderIcon,
@@ -107,7 +105,7 @@ export const Nav = () => {
             link={DashboardTasks.Link}
             isActive={currentPath === "tasks"}
           >
-            <DocumentCheckIcon className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
+            <AlignStartHorizontal className="stroke-inherit stroke-[0.75] min-w-7 w-7" />
           </NavLink>
 
           <NavLink

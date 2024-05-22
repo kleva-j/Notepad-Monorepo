@@ -1,12 +1,12 @@
 "use client";
 
-import { type PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 import { SearchButton } from "@/app/dashboard/SearchButton";
-import { PlusIcon } from "@heroicons/react/24/outline";
 import { Button } from "@repo/ui/components/ui/button";
 import { UserButton } from "@clerk/clerk-react";
 import { Dashboard } from "@/routes";
+import { Mic } from "lucide-react";
 
 import {
   BreadcrumbSeparator,
@@ -32,9 +32,8 @@ export default function Layout({ children }: PropsWithChildren) {
       </Breadcrumb>
       <div className="flex gap-x-4 ml-auto items-center">
         <SearchButton />
-        <Button className="rounded-full" size="sm">
-          <PlusIcon className="w-5 h-5 mr-2" />
-          Record New
+        <Button className="rounded-full h-8 w-8" size="icon">
+          <Mic size="20" />
         </Button>
 
         <UserButton />
