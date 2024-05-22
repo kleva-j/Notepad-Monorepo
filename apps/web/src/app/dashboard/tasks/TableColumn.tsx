@@ -1,15 +1,11 @@
 "use client";
 
-import {
-  ArrowUpDown,
-  Flag,
-  FlagTriangleRight,
-  MoreHorizontal,
-} from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, Flag } from "lucide-react";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { Button } from "@repo/ui/components/ui/button";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
+import { cn } from "@repo/ui/lib/utils";
 
 import {
   DropdownMenuSeparator,
@@ -19,14 +15,17 @@ import {
   DropdownMenuItem,
   DropdownMenu,
 } from "@repo/ui/components/ui/dropdown-menu";
-import { cn } from "@repo/ui/lib/utils";
+
+export type Column = "backlog" | "todo" | "in progress" | "completed";
+export type Status = "pending" | "doing" | "done" | "cancelled";
+export type Priority = "low" | "normal" | "urgent";
 
 export type TableTask = {
   id: string;
   title: string;
-  column: "backlog" | "todo" | "in progress" | "completed";
-  status: "pending" | "doing" | "done";
-  priority: "low" | "normal" | "urgent";
+  column: Column;
+  status: Status;
+  priority: Priority;
   createdAt: string;
   updatedAt?: string | null;
   completedAt?: string | null;
@@ -116,11 +115,15 @@ export const Columns: ColumnDef<TableTask>[] = [
               )}
             ></span>
           </span>
-          <span className={cn("text-xs", {
-            "text-amber-600": value === "pending",
-            "text-sky-600": value === "doing",
-            "text-emerald-600": value === "done",
-          })}>{row.getValue("status")}</span>
+          <span
+            className={cn("text-xs", {
+              "text-amber-600": value === "pending",
+              "text-sky-600": value === "doing",
+              "text-emerald-600": value === "done",
+            })}
+          >
+            {row.getValue("status")}
+          </span>
         </div>
       );
     },
@@ -132,8 +135,10 @@ export const Columns: ColumnDef<TableTask>[] = [
       const value = row.getValue("priority");
       const colorMap = {
         "text-rose-400 border-red-100 dark:border-red-600": value === "urgent",
-        "text-cyan-400 border-cyan-200 dark:border-cyan-600": value === "normal",
-        "text-slate-400 border-slate-200 dark:border-slate-600": value === "low",
+        "text-cyan-400 border-cyan-200 dark:border-cyan-600":
+          value === "normal",
+        "text-slate-400 border-slate-200 dark:border-slate-600":
+          value === "low",
       };
       return (
         <Badge
@@ -148,7 +153,7 @@ export const Columns: ColumnDef<TableTask>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Date Created",
+    header: "Created At",
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
       const formatted = date.toLocaleDateString("en-US", {

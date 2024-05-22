@@ -1,10 +1,60 @@
 import { TableTask } from "@/app/dashboard/tasks/TableColumn";
 import { Payment } from "@/app/dashboard/tasks/ListColumn";
 import { getRandomDate } from "@/lib/utils";
+import {
+  ArrowRightIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  CircleCheck,
+  CircleIcon,
+  CircleX,
+  Timer,
+} from "lucide-react";
 
-import ShortUniqueId from 'short-unique-id';
+import ShortUniqueId from "short-unique-id";
 
 const uid = new ShortUniqueId();
+
+export const priorities = [
+  {
+    label: "Low",
+    value: "low",
+    icon: ArrowDownIcon,
+  },
+  {
+    label: "Normal",
+    value: "normal",
+    icon: ArrowRightIcon,
+  },
+  {
+    label: "Urgent",
+    value: "urgent",
+    icon: ArrowUpIcon,
+  },
+];
+
+export const statuses = [
+  {
+    value: "pending",
+    label: "Pending",
+    icon: CircleIcon,
+  },
+  {
+    value: "doing",
+    label: "Doing",
+    icon: Timer,
+  },
+  {
+    value: "done",
+    label: "Done",
+    icon: CircleCheck,
+  },
+  {
+    value: "canceled",
+    label: "Canceled",
+    icon: CircleX,
+  },
+];
 
 export const data: Payment[] = [
   {

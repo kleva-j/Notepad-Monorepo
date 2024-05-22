@@ -1,10 +1,11 @@
 "use client";
 
+import { TableData, priorities, statuses } from "@/app/dashboard/tasks/data";
 import { Columns } from "@/app/dashboard/tasks/TableColumn";
-import { TableData } from "@/app/dashboard/tasks/data";
+import { Separator } from "@repo/ui/components/ui/separator";
+import { ChevronDown, Cross, PlusIcon } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
-import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import {
   getPaginationRowModel,
@@ -17,11 +18,10 @@ import {
   SortingState,
   flexRender,
 } from "@tanstack/react-table";
-
 import {
   DropdownMenuCheckboxItem,
-  DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuTrigger,
   DropdownMenu,
 } from "@repo/ui/components/ui/dropdown-menu";
 import {
@@ -32,6 +32,8 @@ import {
   TableRow,
   Table,
 } from "@repo/ui/components/ui/table";
+
+import { DataTableFacetedFilter } from "./TableFacetedFilter";
 
 export function TableView() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -64,44 +66,85 @@ export function TableView() {
     },
   });
 
+  const isFiltered = table.getState().columnFilters.length > 0
+
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter titles..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+      <div className="flex items-center py-4 justify-between gap-x-4">
+        <div className="flex items-center gap-x-4 flex-1 max-w-md">
+          <Input
+            placeholder="Filter titles..."
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("title")?.setFilterValue(event.target.value)
+            }
+          />
+
+          {table.getColumn("status") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("status")}
+              title="Status"
+              options={statuses}
+            />
+          )}
+
+          {table.getColumn("priority") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("priority")}
+              title="Priority"
+              options={priorities}
+            />
+          )}
+
+          {isFiltered && (
+          <Button
+            variant="ghost"
+            onClick={() => table.resetColumnFilters()}
+            className="h-8 px-2 lg:px-3"
+          >
+            Reset
+            <Cross className="ml-2 h-4 w-4" />
+          </Button>
+        )}
+        </div>
+
+        <div className="flex gap-x-3 items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Columns <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Separator orientation="vertical" className="h-9" />
+
+          <Button className="" size="sm">
+            <PlusIcon className="h-4 w-4 mr-1" />
+            New Task
+          </Button>
+        </div>
       </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
