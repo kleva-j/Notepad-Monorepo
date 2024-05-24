@@ -1,11 +1,11 @@
 "use client";
 
-import { DataTableFacetedFilter } from "@/app/dashboard/tasks/TableFacetedFilter";
-import { TableData, priorities, statuses } from "@/app/dashboard/tasks/data";
-import { Columns } from "@/app/dashboard/tasks/TableColumn";
+import { DataTableFacetedFilter } from "@/tasks/TableFacetedFilter";
+import { TableData, priorities, statuses } from "@/tasks/data";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
 import { ChevronDown, Cross } from "lucide-react";
+import { Columns } from "@/tasks/TableColumn";
 import { useState } from "react";
 import {
   getPaginationRowModel,

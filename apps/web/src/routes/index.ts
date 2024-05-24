@@ -15,7 +15,7 @@ import * as DashboardHeaderTasksRoute from "@/app/dashboard/@header/tasks/page.i
 import * as DashboardRecordsRoute from "@/app/dashboard/records/page.info";
 import * as DashboardSettingsRoute from "@/app/dashboard/settings/page.info";
 import * as SettingsAppearanceRoute from "@/app/dashboard/settings/appearance/page.info";
-import * as DashboardTasksRoute from "@/app/dashboard/tasks/page.info";
+import * as DashboardTasksRoute from "@/tasks/page.info";
 import * as SigninRoute from "@/app/sign-in/[[...sign-in]]/page.info";
 import * as SignupRoute from "@/app/sign-up/[[...sign-up]]/page.info";
 

@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from "@repo/ui/components/ui/table";
-import { TableTask } from "@/app/dashboard/tasks/TableColumn";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { Badge } from "@repo/ui/components/ui/badge";
+import { TableTask } from "@/tasks/TableColumn";
 import { cn } from "@repo/ui/lib/utils";
 
 type ListCardProps = TableTask & {

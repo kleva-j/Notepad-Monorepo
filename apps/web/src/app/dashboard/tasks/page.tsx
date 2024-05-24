@@ -1,8 +1,8 @@
 import { Separator } from "@repo/ui/components/ui/separator";
-import { KanbanBoard } from "@/app/dashboard/tasks/Kanban";
-import { TableView } from "@/app/dashboard/tasks/Table";
 import { Button } from "@repo/ui/components/ui/button";
-import { ListView } from "@/app/dashboard/tasks/List";
+import { KanbanBoard } from "@/tasks/Kanban";
+import { TableView } from "@/tasks/Table";
+import { ListView } from "@/tasks/List";
 import {
   AlignVerticalDistributeStart,
   AlignStartHorizontal,
