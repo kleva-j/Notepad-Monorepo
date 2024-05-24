@@ -6,8 +6,8 @@ import { ListView } from "@/app/dashboard/tasks/List";
 import {
   AlignVerticalDistributeStart,
   AlignStartHorizontal,
-  Table,
   PlusIcon,
+  Table,
 } from "lucide-react";
 import {
   TabsContent,

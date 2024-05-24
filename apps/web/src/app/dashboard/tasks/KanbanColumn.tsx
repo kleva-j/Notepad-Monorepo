@@ -8,11 +8,10 @@ type ColumnProps = {
   column: string;
   headingColor: string;
   cards: BaseTaskProps[];
-  setCards: (card: BaseTaskProps) => void;
 };
 
 export const Column = (props: ColumnProps) => {
-  const { title, column, cards, setCards, headingColor } = props;
+  const { title, column, cards, headingColor } = props;
 
   return (
     <div className="flex shrink-0 w-64 flex-col">
@@ -28,7 +27,6 @@ export const Column = (props: ColumnProps) => {
               key={card.id}
               column={column}
               title={card.title}
-              handleDragStart={() => setCards(card)}
             />
           ))}
         </ul>
