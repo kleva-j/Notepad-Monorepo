@@ -4,12 +4,6 @@ import { KanbanCard } from "@/app/dashboard/tasks/Card";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { cn } from "@repo/ui/lib/utils";
 
-export type BaseTaskProps = {
-  id: string;
-  title: string;
-  column: string;
-};
-
 type ColumnProps = {
   title: string;
   column: string;
