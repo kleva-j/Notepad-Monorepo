@@ -1,13 +1,14 @@
 import { Separator } from "@repo/ui/components/ui/separator";
 import { KanbanBoard } from "@/app/dashboard/tasks/Kanban";
 import { TableView } from "@/app/dashboard/tasks/Table";
+import { Button } from "@repo/ui/components/ui/button";
 import { ListView } from "@/app/dashboard/tasks/List";
 import {
   AlignVerticalDistributeStart,
   AlignStartHorizontal,
-  Grid3X3,
+  PlusIcon,
+  Table,
 } from "lucide-react";
-
 import {
   TabsContent,
   TabsTrigger,
@@ -17,9 +18,13 @@ import {
 
 export default function TasksPage() {
   return (
-    <main className="flex min-h-[calc(100vh_-_theme(spacing.20))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-      <div className="mx-auto grid w-full max-w-[80rem] gap-2">
+    <main className="flex min-h-[calc(100vh_-_theme(spacing.20))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 overflow-y-auto">
+      <div className="mx-auto flex justify-between w-full max-w-[80rem] gap-2">
         <h1 className="text-3xl font-medium">Tasks</h1>
+        <Button className="" size="sm">
+          <PlusIcon className="h-4 w-4 mr-1" />
+          Create Task
+        </Button>
       </div>
       <div className="mx-auto w-full max-w-[80rem]">
         <Tabs defaultValue="kanban">
@@ -33,7 +38,7 @@ export default function TasksPage() {
               List
             </TabsTrigger>
             <TabsTrigger value="table">
-              <Grid3X3 className="mr-2 h-4 w-4" />
+              <Table className="mr-2 h-4 w-4" />
               Table
             </TabsTrigger>
           </TabsList>

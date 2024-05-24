@@ -1,25 +1,17 @@
-import type { Dispatch, SetStateAction } from "react";
-
+import { BaseTaskProps } from "@/app/dashboard/tasks/data";
 import { KanbanCard } from "@/app/dashboard/tasks/Card";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { cn } from "@repo/ui/lib/utils";
 
-export type BaseTaskProps = {
-  id: string;
-  title: string;
-  column: string;
-};
-
 type ColumnProps = {
   title: string;
   column: string;
-  cards: any[];
-  setCards: Dispatch<SetStateAction<any[]>>;
   headingColor: string;
+  cards: BaseTaskProps[];
 };
 
 export const Column = (props: ColumnProps) => {
-  const { title, column, cards, setCards, headingColor } = props;
+  const { title, column, cards, headingColor } = props;
 
   return (
     <div className="flex shrink-0 w-64 flex-col">
@@ -35,7 +27,6 @@ export const Column = (props: ColumnProps) => {
               key={card.id}
               column={column}
               title={card.title}
-              handleDragStart={() => setCards(cards)}
             />
           ))}
         </ul>
