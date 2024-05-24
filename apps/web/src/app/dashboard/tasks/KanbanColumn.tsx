@@ -1,5 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
-
+import { BaseTaskProps } from "@/app/dashboard/tasks/data";
 import { KanbanCard } from "@/app/dashboard/tasks/Card";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { cn } from "@repo/ui/lib/utils";
@@ -7,9 +6,9 @@ import { cn } from "@repo/ui/lib/utils";
 type ColumnProps = {
   title: string;
   column: string;
-  cards: any[];
-  setCards: Dispatch<SetStateAction<any[]>>;
   headingColor: string;
+  cards: BaseTaskProps[];
+  setCards: (card: BaseTaskProps) => void;
 };
 
 export const Column = (props: ColumnProps) => {
@@ -29,7 +28,7 @@ export const Column = (props: ColumnProps) => {
               key={card.id}
               column={column}
               title={card.title}
-              handleDragStart={() => setCards(cards)}
+              handleDragStart={() => setCards(card)}
             />
           ))}
         </ul>

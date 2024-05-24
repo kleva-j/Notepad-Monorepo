@@ -1,65 +1,39 @@
-"use client";
-
-import type { BaseTaskProps } from "@/app/dashboard/tasks/KanbanColumn";
-
+import { getCardByColumn } from "@/app/dashboard/tasks/data";
 import { Column } from "@/app/dashboard/tasks/KanbanColumn";
-import { DEFAULT_CARDS } from "@/app/dashboard/tasks/data";
-import { useState } from "react";
 
-interface IKanbanColumn {
-  backlog: BaseTaskProps[];
-  todo: BaseTaskProps[];
-  doing: BaseTaskProps[];
-  done: BaseTaskProps[];
-}
-
-const kanbanColumn: IKanbanColumn = {
-  backlog: [],
-  todo: [],
-  doing: [],
-  done: [],
-};
-
-const cardsByColumn: IKanbanColumn = DEFAULT_CARDS.reduce((acc, card) => {
-  acc[card.column as keyof IKanbanColumn].push(card);
-  return acc;
-}, kanbanColumn);
+const { todo, doing, done, backlog } = getCardByColumn();
 
 export const KanbanBoard = () => {
-  const [, setCards] = useState<BaseTaskProps[]>(DEFAULT_CARDS);
-
-  const { todo, doing, done, backlog } = cardsByColumn;
-
   return (
     <div className="border rounded-sm">
       <div className="flex h-full w-full gap-y-3 gap-x-4 overflow-scroll p-8">
         <Column
+          cards={backlog}
           title="Backlog"
           column="backlog"
+          setCards={() => {}}
           headingColor="text-neutral-500"
-          cards={backlog}
-          setCards={setCards}
-        />
+          />
         <Column
+          cards={todo}
           title="TODO"
           column="todo"
+          setCards={() => {}}
           headingColor="text-yellow-500"
-          cards={todo}
-          setCards={setCards}
         />
         <Column
-          title="In progress"
-          column="doing"
-          headingColor="text-blue-500"
           cards={doing}
-          setCards={setCards}
+          column="doing"
+          title="In progress"
+          setCards={() => {}}
+          headingColor="text-blue-500"
         />
         <Column
-          title="Complete"
-          column="done"
-          headingColor="text-emerald-500"
           cards={done}
-          setCards={setCards}
+          column="done"
+          title="Complete"
+          setCards={() => {}}
+          headingColor="text-emerald-500"
         />
       </div>
     </div>
