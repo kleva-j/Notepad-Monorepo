@@ -16,7 +16,7 @@ import {
 
 export type Column = "backlog" | "todo" | "in progress" | "completed";
 export type Status = "pending" | "doing" | "done" | "cancelled";
-export type Priority = "low" | "normal" | "urgent";
+export type Priority = "low" | "normal" | "high" | "urgent";
 
 export type TableTask = {
   id: string;
