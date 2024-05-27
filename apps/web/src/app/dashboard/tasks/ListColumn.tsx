@@ -2,10 +2,10 @@
 
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
-import { ListCard } from "@/app/dashboard/tasks/ListCard";
 import { useMemo, useState, useCallback } from "react";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { ChevronUp, PlusIcon } from "lucide-react";
+import { ListCard } from "@/tasks/ListCard";
 import { cn } from "@repo/ui/lib/utils";
 import { motion } from "framer-motion";
 

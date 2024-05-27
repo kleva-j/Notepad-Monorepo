@@ -1,4 +1,4 @@
-import { TableTask } from "@/app/dashboard/tasks/TableColumn";
+import { TableTask } from "@/tasks/TableColumn";
 import { getRandomDate } from "@/lib/utils";
 import {
   ArrowRightIcon,

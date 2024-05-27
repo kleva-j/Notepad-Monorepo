@@ -1,6 +1,6 @@
 "use client";
 
-import type { BaseTaskProps } from "@/app/dashboard/tasks/data";
+import type { BaseTaskProps } from "@/tasks/data";
 
 import { Card } from "@repo/ui/components/ui/card";
 import { motion } from "framer-motion";
