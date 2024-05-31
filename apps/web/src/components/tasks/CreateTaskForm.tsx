@@ -1,6 +1,6 @@
 "use client";
 
-import type { Column, Status, Priority } from "@/tasks/TableColumn";
+import type { Column, Priority, Status } from "@/tasks/data";
 
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { Button } from "@repo/ui/components/ui/button";
@@ -9,7 +9,6 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Loader2, Minus, Plus } from "lucide-react";
 import { priorities, statuses } from "@/tasks/data";
 import { useForm } from "react-hook-form";
-import { cn } from "@repo/ui/lib/utils";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";

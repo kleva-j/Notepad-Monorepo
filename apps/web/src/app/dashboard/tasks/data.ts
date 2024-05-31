@@ -1,11 +1,13 @@
-import { TableTask } from "@/tasks/TableColumn";
 import { getRandomDate } from "@/lib/utils";
 import {
   ArrowRightIcon,
   ArrowDownIcon,
   ArrowUpIcon,
   CircleCheck,
+  ChevronDown,
   CircleIcon,
+  ChevronsUp,
+  ChevronUp,
   CircleX,
   Timer,
 } from "lucide-react";
@@ -19,16 +21,19 @@ export const priorities = [
     label: "Low",
     value: "low",
     icon: ArrowDownIcon,
+    icon2: ChevronDown,
   },
   {
     label: "Normal",
     value: "normal",
     icon: ArrowRightIcon,
+    icon2: ChevronUp,
   },
   {
     label: "Urgent",
     value: "urgent",
     icon: ArrowUpIcon,
+    icon2: ChevronsUp,
   },
 ];
 
@@ -59,12 +64,14 @@ export const TableData: TableTask[] = [
   {
     id: "1",
     title: "Look into render bug in dashboard",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     column: "backlog",
     status: "pending",
     priority: "urgent",
     recordId: uid.rnd(15),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
+    dueDate: getRandomDate(new Date(2022, 0, 1), new Date()),
   },
   {
     id: "2",
@@ -200,6 +207,22 @@ export interface IKanbanColumn {
   doing: BaseTaskProps[];
   done: BaseTaskProps[];
 }
+
+export type Column = "backlog" | "todo" | "in progress" | "completed";
+export type Status = "pending" | "doing" | "done" | "cancelled";
+export type Priority = "low" | "normal" | "high" | "urgent";
+
+export type TableTask = BaseTaskProps & {
+  status: Status;
+  priority: Priority;
+  createdAt: string;
+  updatedAt?: string | null;
+  completedAt?: string | null;
+  dueDate?: string | null;
+  tags: string[];
+  description?: string;
+  recordId: string;
+};
 
 const kanbanColumn: IKanbanColumn = {
   backlog: [],

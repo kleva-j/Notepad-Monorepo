@@ -1,6 +1,6 @@
+import { ListColumn } from "@/components/tasks/ListColumn";
 import { Input } from "@repo/ui/components/ui/input";
 import { getTableDataByColumn } from "@/tasks/data";
-import { ListColumn } from "@/tasks/ListColumn";
 
 const { todo, completed, backlog, ...rest } = getTableDataByColumn();
 

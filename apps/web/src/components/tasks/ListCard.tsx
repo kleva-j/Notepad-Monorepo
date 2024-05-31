@@ -1,26 +1,32 @@
 import { TableCell, TableRow } from "@repo/ui/components/ui/table";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { Badge } from "@repo/ui/components/ui/badge";
-import { TableTask } from "@/tasks/TableColumn";
+import { TableTask } from "@/tasks/data";
 import { cn } from "@repo/ui/lib/utils";
 
-type ListCardProps = TableTask & {
+type ListCardProps = {
+  task: TableTask;
   checked: boolean;
+  handleClick: () => void;
   onCheckChange: (id: string) => void;
 };
 
 export const ListCard = (props: ListCardProps) => {
-  const { id, title, status, priority, createdAt, onCheckChange } = props;
+  const { task, onCheckChange } = props;
+  const { id, title, status, priority, createdAt } = task;
 
-  const date = new Date(createdAt);
-  const formatted = date.toLocaleDateString("en-US", {
+  const formatted = new Date(createdAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
   return (
-    <TableRow>
+    <TableRow
+      onClick={() => props.handleClick()}
+      className="cursor-pointer"
+      {...props}
+    >
       <TableCell>
         <Checkbox
           checked={props.checked}
@@ -54,7 +60,9 @@ export const ListCard = (props: ListCardProps) => {
       >
         {priority}
       </TableCell>
-      <TableCell className="text-sm text-gray-700 dark:text-gray-400">{formatted}</TableCell>
+      <TableCell className="text-sm text-gray-700 dark:text-gray-400">
+        {formatted}
+      </TableCell>
     </TableRow>
   );
 };
