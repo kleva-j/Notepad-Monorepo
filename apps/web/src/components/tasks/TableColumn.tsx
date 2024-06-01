@@ -1,3 +1,5 @@
+import type { TableTask } from "@/app/dashboard/tasks/data";
+
 import { MoreHorizontal, ArrowUpDown, Flag } from "lucide-react";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { Button } from "@repo/ui/components/ui/button";
@@ -13,24 +15,6 @@ import {
   DropdownMenuItem,
   DropdownMenu,
 } from "@repo/ui/components/ui/dropdown-menu";
-
-export type Column = "backlog" | "todo" | "in progress" | "completed";
-export type Status = "pending" | "doing" | "done" | "cancelled";
-export type Priority = "low" | "normal" | "high" | "urgent";
-
-export type TableTask = {
-  id: string;
-  title: string;
-  column: Column;
-  status: Status;
-  priority: Priority;
-  createdAt: string;
-  updatedAt?: string | null;
-  completedAt?: string | null;
-  tags: string[];
-  description?: string;
-  recordId: string;
-};
 
 export const Columns: ColumnDef<TableTask>[] = [
   {

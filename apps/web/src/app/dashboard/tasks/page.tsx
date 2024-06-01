@@ -1,9 +1,9 @@
+import { CreateTaskForm } from "@/components/tasks/CreateTaskForm";
+import { CreateTaskBtn } from "@/components/tasks/CreateTaskBtn";
 import { Separator } from "@repo/ui/components/ui/separator";
-import { CreateTaskForm } from "@/tasks/CreateTaskForm";
-import { CreateTaskBtn } from "@/tasks/CreateTaskBtn";
-import { KanbanBoard } from "@/tasks/Kanban";
-import { TableView } from "@/tasks/Table";
-import { ListView } from "@/tasks/List";
+import { KanbanBoard } from "@/components/tasks/Kanban";
+import { TableView } from "@/components/tasks/Table";
+import { ListView } from "@/components/tasks/List";
 import {
   AlignVerticalDistributeStart,
   AlignStartHorizontal,

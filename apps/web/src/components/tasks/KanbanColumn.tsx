@@ -1,6 +1,6 @@
+import { KanbanCard } from "@/components/tasks/Card";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { BaseTaskProps } from "@/tasks/data";
-import { KanbanCard } from "@/tasks/Card";
 import { cn } from "@repo/ui/lib/utils";
 
 type ColumnProps = {
