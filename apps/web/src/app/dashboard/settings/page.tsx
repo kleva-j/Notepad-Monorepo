@@ -1,4 +1,4 @@
-import { AccountForm } from "@/app/dashboard/settings/AccountForm";
+import { AccountForm } from "@/components/settings/AccountForm";
 import { Separator } from "@repo/ui/components/ui/separator";
 
 export default function Page() {

@@ -2,7 +2,7 @@
 
 import type { PropsWithChildren } from "react";
 
-import { SettingsNav } from "@/app/dashboard/settings/Nav";
+import { SettingsNav } from "@/components/settings/Nav";
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
 
