@@ -1,9 +1,8 @@
 "use client";
 
-import { SettingsAppearance, DashboardSettings } from "@/routes";
-import { cn } from "@repo/ui/lib/utils";
-
+import { SettingsAppearance, DashboardSettings, SettingsTasks } from "@/routes";
 import { usePathname } from "next/navigation";
+import { cn } from "@repo/ui/lib/utils";
 
 export const SettingsNav = () => {
   const pathname = usePathname();
@@ -25,6 +24,13 @@ export const SettingsNav = () => {
       >
         Appearance
       </SettingsAppearance.Link>
+      <SettingsTasks.Link
+        className={cn({
+          "text-primary font-semibold": currentPath === "tasks",
+        })}
+      >
+        Tasks
+      </SettingsTasks.Link>
     </nav>
   );
 };
