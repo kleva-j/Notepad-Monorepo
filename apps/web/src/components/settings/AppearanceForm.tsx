@@ -72,8 +72,8 @@ export function AppearanceForm() {
     if (isLoaded && user) {
       const { theme, colorScheme } = user.unsafeMetadata as AppearanceFormInput;
       form.reset({
-        theme: theme || "light",
-        colorScheme: colorScheme || "neutral",
+        theme: theme || formValues.theme,
+        colorScheme: colorScheme || formValues.colorScheme,
       });
     }
   }, [isLoaded, user]);
