@@ -22,6 +22,8 @@
     "convex": "^1.11.2",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.1.7",
+    "jotai": "^2.8.3",
+    "lottie-react": "^2.4.0",
     "lucide-react": "^0.367.0",
     "next": "^14.2.2",
     "next-themes": "^0.3.0",
