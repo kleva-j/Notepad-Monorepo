@@ -1,20 +1,15 @@
 import { ConvexError, v } from "convex/values";
-import { Auth } from "convex/server";
 
-import { mutationWithUser, queryWithUser } from "./utils";
+import { mutateWithUser, queryWithUser } from "./utils";
 
-export const getUserId = async (ctx: { auth: Auth }) => {
-  return (await ctx.auth.getUserIdentity())?.tokenIdentifier;
-};
-
-export const generateUploadUrl = mutationWithUser({
+export const generateUploadUrl = mutateWithUser({
   args: {},
   handler: async (ctx) => {
     return await ctx.storage.generateUploadUrl();
   },
 });
 
-export const createNote = mutationWithUser({
+export const createNote = mutateWithUser({
   args: {
     storageId: v.id("_storage"),
   },
@@ -61,7 +56,7 @@ export const getNotes = queryWithUser({
   },
 });
 
-export const deleteNote = mutationWithUser({
+export const deleteNote = mutateWithUser({
   args: {
     id: v.id("notes"),
   },

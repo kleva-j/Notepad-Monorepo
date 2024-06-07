@@ -1,4 +1,11 @@
-import { action, mutation, query } from "./_generated/server";
+import {
+  type ActionCtx,
+  type QueryCtx,
+  mutation,
+  action,
+  query,
+} from "./_generated/server";
+
 import { ConvexError } from "convex/values";
 import { Auth } from "convex/server";
 import {
@@ -12,38 +19,17 @@ export const getUserId = async (ctx: { auth: Auth }) => {
   return (await ctx.auth.getUserIdentity())?.tokenIdentifier;
 };
 
-export const queryWithUser = customQuery(
-  query,
-  customCtx(async (ctx) => {
-    const userId = await getUserId(ctx);
-    if (userId === undefined) {
-      throw new ConvexError("User must be logged in.");
-    }
-    return { userId };
-  })
-);
+export async function authStatus(ctx: QueryCtx | ActionCtx) {
+  const userId = await getUserId(ctx);
+  if (userId === undefined) {
+    throw new ConvexError("User must be logged in.");
+  }
+  return { userId };
+}
 
-export const mutationWithUser = customMutation(
-  mutation,
-  customCtx(async (ctx) => {
-    const userId = await getUserId(ctx);
-    if (userId === undefined) {
-      throw new ConvexError("User must be logged in.");
-    }
-    return { userId };
-  })
-);
-
-export const actionWithUser = customAction(
-  action,
-  customCtx(async (ctx) => {
-    const userId = await getUserId(ctx);
-    if (userId === undefined) {
-      throw new ConvexError("User must be logged in.");
-    }
-    return { userId };
-  })
-);
+export const queryWithUser = customQuery(query, customCtx(authStatus));
+export const actionWithUser = customAction(action, customCtx(authStatus));
+export const mutateWithUser = customMutation(mutation, customCtx(authStatus));
 
 export const envVarsMissing = query({
   args: {},
