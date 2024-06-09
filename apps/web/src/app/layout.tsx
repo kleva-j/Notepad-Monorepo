@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { ViewTransitions } from "next-view-transitions";
 import { Toaster } from "@/components/Sonner";
 import { Inter } from "next/font/google";
+import { Provider } from "jotai";
 
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
 
@@ -23,15 +24,17 @@ function RootLayout({ children }: Readonly<PropsWithChildren>): JSX.Element {
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ConvexClientProvider>{children}</ConvexClientProvider>
-            <Toaster />
-          </ThemeProvider>
+          <Provider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ConvexClientProvider>{children}</ConvexClientProvider>
+              <Toaster />
+            </ThemeProvider>
+          </Provider>
         </body>
       </html>
     </ViewTransitions>
