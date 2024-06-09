@@ -1,14 +1,18 @@
 "use client";
 
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/ui/radio-group";
+import { appearanceAtom, settingsAtom } from "@/atoms/Settings";
 import { Button } from "@repo/ui/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSetAtom, useAtomValue } from "jotai";
+import { getMetadataFromUser } from "@/lib/user";
 import { useUser } from "@clerk/clerk-react";
 import { useForm } from "react-hook-form";
 import { cn } from "@repo/ui/lib/utils";
 import { useTheme } from "next-themes";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
+import { isEqual } from "lodash";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -37,46 +41,44 @@ const appearanceFormSchema = z.object({
     .default("neutral"),
 });
 
-type AppearanceFormInput = z.input<typeof appearanceFormSchema>;
-type AppearanceFormOutput = z.infer<typeof appearanceFormSchema>;
-
-let formValues: AppearanceFormInput = {
-  theme: "light",
-  colorScheme: "neutral",
-};
+export type AppearanceFormInput = z.input<typeof appearanceFormSchema>;
+export type AppearanceFormOutput = z.infer<typeof appearanceFormSchema>;
 
 export function AppearanceForm() {
   const { setTheme } = useTheme();
   const { isLoaded, user } = useUser();
+  const updateSettings = useSetAtom(settingsAtom);
+  const values = useAtomValue(appearanceAtom) as AppearanceFormInput;
 
   const form = useForm<AppearanceFormOutput>({
     resolver: zodResolver(appearanceFormSchema),
-    defaultValues: formValues,
+    defaultValues: values,
   });
-
-  function onSubmit({ theme, colorScheme }: AppearanceFormOutput) {
-    if (isLoaded && user) {
-      const metadata = user.unsafeMetadata;
-      const promise = user.update({
-        unsafeMetadata: { ...metadata, theme, colorScheme },
-      });
-      toast.promise(promise, {
-        loading: "Saving...",
-        success: "Theme and color scheme updated",
-        error: "Could not update appearance",
-      });
-    }
-  }
 
   useEffect(() => {
     if (isLoaded && user) {
-      const { theme, colorScheme } = user.unsafeMetadata as AppearanceFormInput;
-      form.reset({
-        theme: theme || formValues.theme,
-        colorScheme: colorScheme || formValues.colorScheme,
-      });
+      const { appearance } = getMetadataFromUser(user);
+      if (!isEqual(appearance, values)) {
+        updateSettings((settings) => ({ ...settings, appearance }));
+        form.reset(appearance as AppearanceFormOutput);
+      }
     }
-  }, [isLoaded, user]);
+  }, [isLoaded]);
+
+  async function onSubmit(appearance: AppearanceFormOutput) {
+    if (isLoaded && user) {
+      toast.info("Saving...");
+      try {
+        await user.update({
+          unsafeMetadata: { ...user.unsafeMetadata, ...appearance },
+        });
+        updateSettings((settings) => ({ ...settings, appearance }));
+        toast.success("Theme and color scheme updated");
+      } catch (error) {
+        toast.error("Could not update appearance");
+      }
+    }
+  }
 
   return (
     <Form {...form}>
