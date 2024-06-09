@@ -1,11 +1,8 @@
-"use client";
-
 import type { PropsWithChildren } from "react";
 
 import { SettingsNav } from "@/components/settings/Nav";
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
-
   return (
     <main className="flex min-h-[calc(100vh_-_theme(spacing.20))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
       <div className="mx-auto grid w-full max-w-6xl gap-2">

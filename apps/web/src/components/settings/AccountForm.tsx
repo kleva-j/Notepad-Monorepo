@@ -1,17 +1,21 @@
 "use client";
 
-import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { accountAtom, settingsAtom } from "@/atoms/Settings";
 import { Calendar } from "@repo/ui/components/ui/calendar";
 import { CalendarIcon, CheckIcon } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@repo/ui/components/ui/input";
+import { useAtomValue, useSetAtom } from "jotai";
+import { getMetadataFromUser } from "@/lib/user";
+import { ChevronsUpDown } from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
 import { useForm } from "react-hook-form";
 import { cn } from "@repo/ui/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { format } from "date-fns";
+import { isEqual } from "lodash";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -20,8 +24,8 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  Command,
   CommandList,
+  Command,
 } from "@repo/ui/components/ui/command";
 import {
   FormDescription,
@@ -64,51 +68,51 @@ const accountFormSchema = z.object({
     .default(languages[0].value),
 });
 
-type AccountFormOutput = z.infer<typeof accountFormSchema>;
-type AccountFormInput = z.input<typeof accountFormSchema>;
-
-const formValues: AccountFormInput = {
-  name: "",
-  language: "en",
-  dob: new Date(),
-};
+export type AccountFormOutput = z.infer<typeof accountFormSchema>;
+export type AccountFormInput = z.input<typeof accountFormSchema>;
+export type AccountFormType = AccountFormOutput;
 
 export function AccountForm() {
   const { isLoaded, user } = useUser();
+  const updateSettings = useSetAtom(settingsAtom);
+  const defaultValues = useAtomValue(accountAtom) as AccountFormType;
 
   const form = useForm<AccountFormOutput>({
     resolver: zodResolver(accountFormSchema),
-    defaultValues: formValues,
+    defaultValues,
   });
-
-  async function onSubmit({ name, dob, language }: AccountFormOutput) {
-    if (isLoaded && user) {
-      const metadata = user.unsafeMetadata;
-      const [firstName, lastName] = name.split(" ");
-      const promise = user.update({
-        firstName,
-        lastName,
-        unsafeMetadata: { ...metadata, dob, language },
-      });
-      toast.promise(promise, {
-        loading: "Saving...",
-        success: "Profile updated",
-        error: "Could not update profile",
-      });
-    }
-  }
 
   useEffect(() => {
     if (isLoaded && user) {
-      const { dob, language } = user.unsafeMetadata as AccountFormInput;
-      const name = `${user.firstName} ${user.lastName}`;
-      form.reset({
-        name: name || formValues.name,
-        dob: dob || formValues.dob,
-        language: language || formValues.language,
-      });
+      const { account } = getMetadataFromUser(user);
+      if (!isEqual(account, defaultValues)) {
+        updateSettings((settings) => ({ ...settings, account }));
+        form.reset({
+          name: account.name,
+          dob: account.dob,
+          language: account.language,
+        });
+      }
     }
-  }, [isLoaded, user]);
+  }, [isLoaded]);
+
+  async function onSubmit(account: AccountFormOutput) {
+    if (isLoaded && user) {
+      toast.info("Saving...");
+      try {
+        const [firstName, lastName] = account.name.split(" ");
+        const unsafeMetadata = { ...user.unsafeMetadata, ...account };
+
+        await user.update({ firstName, lastName, unsafeMetadata });
+
+        updateSettings((settings) => ({ ...settings, account }));
+
+        toast.success("Account profile updated");
+      } catch (error) {
+        toast.error("Could not update account profile");
+      }
+    }
+  }
 
   return (
     <Form {...form}>
@@ -203,7 +207,7 @@ export function AccountForm() {
                             (language) => language.value === field.value
                           )?.label
                         : "Select language"}
-                      <ChevronUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>

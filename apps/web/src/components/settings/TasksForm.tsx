@@ -1,13 +1,17 @@
 "use client";
 
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/ui/radio-group";
+import { settingsAtom, tasksAtom } from "@/atoms/Settings";
 import { Slider } from "@repo/ui/components/ui/slider";
 import { Button } from "@repo/ui/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtomValue, useSetAtom } from "jotai";
+import { getMetadataFromUser } from "@/lib/user";
 import { useUser } from "@clerk/clerk-react";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
+import { isEqual } from "lodash";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -28,35 +32,42 @@ export const TasksFormSchema = z.object({
   columns: z.number().min(1).max(5).default(3),
 });
 
-type TasksFormInput = z.input<typeof TasksFormSchema>;
-type TasksFormOutput = z.infer<typeof TasksFormSchema>;
-
-const formValues: TasksFormInput = {
-  layout: "kanban",
-  columns: 4,
-};
+export type TasksFormInput = z.input<typeof TasksFormSchema>;
+export type TasksFormOutput = z.infer<typeof TasksFormSchema>;
 
 export const TasksForm = () => {
   const { isLoaded, user } = useUser();
+  const updateSettings = useSetAtom(settingsAtom);
+  const defaultValues = useAtomValue(tasksAtom) as TasksFormOutput;
 
   const form = useForm<TasksFormOutput>({
     resolver: zodResolver(TasksFormSchema),
-    defaultValues: formValues,
+    defaultValues,
   });
 
   useEffect(() => {
     if (isLoaded && user) {
-      const { layout, columns } = user.unsafeMetadata as TasksFormInput;
-      form.reset({
-        layout: layout || formValues.layout,
-        columns: columns || formValues.columns,
-      });
+      const { tasks } = getMetadataFromUser(user);
+      if (!isEqual(tasks, defaultValues)) {
+        updateSettings((settings) => ({ ...settings, tasks }));
+        form.reset(tasks as TasksFormOutput);
+      }
     }
-  }, [isLoaded, user]);
+  }, [isLoaded]);
 
-  function onSubmit(data: TasksFormOutput) {
-    toast.success("Tasks form submitted");
-    console.log(data);
+  async function onSubmit(tasks: TasksFormOutput) {
+    if (isLoaded && user) {
+      toast.info("Saving...");
+      try {
+        await user.update({
+          unsafeMetadata: { ...user.unsafeMetadata, ...tasks },
+        });
+        updateSettings((settings) => ({ ...settings, tasks }));
+        toast.success("Tasks form submitted");
+      } catch (error) {
+        toast.error("Could not update tasks settings");
+      }
+    }
   }
 
   return (
