@@ -6,13 +6,12 @@ import type { Metadata } from "next";
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { ViewTransitions } from "next-view-transitions";
+import { fontMono, fontSans } from "@/lib/fonts";
 import { Toaster } from "@/components/Sonner";
-import { Inter } from "next/font/google";
+import { cn } from "@repo/ui/lib/utils";
 import { Provider } from "jotai";
 
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Notepad-GPT",
@@ -23,13 +22,19 @@ function RootLayout({ children }: Readonly<PropsWithChildren>): JSX.Element {
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable,
+            fontMono.variable
+          )}
+        >
           <Provider>
             <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
               disableTransitionOnChange
+              defaultTheme="system"
+              attribute="class"
+              enableSystem
             >
               <ConvexClientProvider>{children}</ConvexClientProvider>
               <Toaster />
