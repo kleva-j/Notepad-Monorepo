@@ -1,8 +1,8 @@
-import type { TableTask } from "@/app/dashboard/tasks/data";
+import type { TableTask } from "@/tasks/data";
 
 import { ChevronsUpDown, Calendar } from "lucide-react";
-import { priorities } from "@/app/dashboard/tasks/data";
 import { Badge } from "@repo/ui/components/ui/badge";
+import { priorities } from "@/tasks/data";
 import { cn } from "@repo/ui/lib/utils";
 
 import {
@@ -15,7 +15,7 @@ import {
 type TaskDetailsProps = { task: TableTask };
 
 export function TaskDetails({ task }: TaskDetailsProps) {
-  const { title, description, status, priority, recordId, dueDate } = task;
+  const { title, description, status, priority, noteId, dueDate } = task;
 
   const Icon =
     priorities.find((p) => p.value === priority)?.icon2 || ChevronsUpDown;
@@ -56,7 +56,7 @@ export function TaskDetails({ task }: TaskDetailsProps) {
               <TableCell className="text-sm font-normal text-slate-500 dark:text-neutral-400 p-0">
                 Record ID
               </TableCell>
-              <TableCell className="p-0">{recordId}</TableCell>
+              <TableCell className="p-0">{noteId}</TableCell>
             </TableRow>
 
             {dueDate && (

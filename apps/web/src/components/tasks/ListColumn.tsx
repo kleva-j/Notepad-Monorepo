@@ -3,10 +3,10 @@
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { useMemo, useState, useCallback } from "react";
-import { TableTask } from "@/app/dashboard/tasks/data";
 import { ListCard } from "@/components/tasks/ListCard";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { ChevronUp, PlusIcon } from "lucide-react";
+import { TableTask } from "@/tasks/data";
 import { cn } from "@repo/ui/lib/utils";
 import { motion } from "framer-motion";
 

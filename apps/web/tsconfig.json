@@ -8,8 +8,7 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/tasks/*": ["./src/app/dashboard/tasks/*"]
+      "@/*": ["./src/*", "./src/components/*"],
     }
   },
   "include": [

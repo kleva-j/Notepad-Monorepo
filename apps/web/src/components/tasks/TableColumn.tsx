@@ -1,4 +1,4 @@
-import type { TableTask } from "@/app/dashboard/tasks/data";
+import type { TableTask } from "@/tasks/data";
 
 import { MoreHorizontal, ArrowUpDown, Flag } from "lucide-react";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
@@ -52,7 +52,7 @@ export const Columns: ColumnDef<TableTask>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div>{row.getValue("recordId")}</div>,
+    cell: ({ row }) => <div>{row.getValue("noteId")}</div>,
   },
   {
     accessorKey: "title",
