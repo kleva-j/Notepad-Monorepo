@@ -1,4 +1,6 @@
 import { getRandomDate } from "@/lib/utils";
+import { generateId } from "@/lib/id";
+import { z } from "zod";
 import {
   ArrowRightIcon,
   ArrowDownIcon,
@@ -11,10 +13,6 @@ import {
   CircleX,
   Timer,
 } from "lucide-react";
-
-import ShortUniqueId from "short-unique-id";
-
-const uid = new ShortUniqueId();
 
 export const priorities = [
   {
@@ -68,7 +66,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "pending",
     priority: "urgent",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
     dueDate: getRandomDate(new Date(2022, 0, 1), new Date()),
@@ -79,7 +77,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "doing",
     priority: "low",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -89,7 +87,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "done",
     priority: "normal",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -99,7 +97,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "pending",
     priority: "normal",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -109,7 +107,7 @@ export const TableData: TableTask[] = [
     column: "todo",
     status: "done",
     priority: "low",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -119,7 +117,7 @@ export const TableData: TableTask[] = [
     column: "todo",
     status: "pending",
     priority: "urgent",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -129,7 +127,7 @@ export const TableData: TableTask[] = [
     column: "todo",
     status: "pending",
     priority: "urgent",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -139,7 +137,7 @@ export const TableData: TableTask[] = [
     column: "in progress",
     status: "doing",
     priority: "urgent",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -149,7 +147,7 @@ export const TableData: TableTask[] = [
     column: "in progress",
     status: "doing",
     priority: "urgent",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -159,7 +157,7 @@ export const TableData: TableTask[] = [
     column: "completed",
     status: "done",
     priority: "urgent",
-    recordId: uid.rnd(15),
+    recordId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -208,9 +206,17 @@ export interface IKanbanColumn {
   done: BaseTaskProps[];
 }
 
-export type Column = "backlog" | "todo" | "in progress" | "completed";
-export type Status = "pending" | "doing" | "done" | "cancelled";
-export type Priority = "low" | "normal" | "high" | "urgent";
+export const COLUMN = ["backlog", "todo", "in progress", "completed"] as const;
+export const STATUS = ["pending", "doing", "done", "cancelled"] as const;
+export const PRIORITY = ["low", "normal", "high", "urgent"] as const;
+
+export const columnEnum = z.enum(COLUMN);
+export const statusEnum = z.enum(STATUS);
+export const priorityEnum = z.enum(PRIORITY);
+
+export type Column = z.infer<typeof columnEnum>;
+export type Status = z.infer<typeof statusEnum>;
+export type Priority = z.infer<typeof priorityEnum>;
 
 export type TableTask = BaseTaskProps & {
   status: Status;
@@ -223,6 +229,21 @@ export type TableTask = BaseTaskProps & {
   description?: string;
   recordId: string;
 };
+
+export type Task = {
+  id: string;
+  title: string;
+  column: Column;
+  status: Status;
+  priority: Priority;
+  createdAt?: string;
+  updatedAt?: string | null;
+  completedAt?: string | null;
+  dueDate?: string | null;
+  tags: string[];
+  description?: string;
+  noteId?: string;
+}
 
 const kanbanColumn: IKanbanColumn = {
   backlog: [],
