@@ -1,10 +1,10 @@
 "use client";
 
-import { type PropsWithChildren, useState } from "react";
-
+import { CreateTaskForm } from "@/tasks/CreateTaskForm";
 import { Button } from "@repo/ui/components/ui/button";
 import { useMediaQuery } from "usehooks-ts";
 import { PlusIcon } from "lucide-react";
+import { useState } from "react";
 
 import {
   DialogContent,
@@ -21,9 +21,13 @@ import {
   Drawer,
 } from "@repo/ui/components/ui/drawer";
 
-export const CreateTaskBtn = ({ children }: PropsWithChildren) => {
+export const CreateTaskModal = () => {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  function onFormSubmit() {
+    setOpen(false);
+  }
 
   if (isDesktop) {
     return (
@@ -38,7 +42,7 @@ export const CreateTaskBtn = ({ children }: PropsWithChildren) => {
           <DialogHeader>
             <DialogTitle>Create New Task</DialogTitle>
           </DialogHeader>
-          {children}
+          <CreateTaskForm submitHandler={onFormSubmit} />
         </DialogContent>
       </Dialog>
     );
@@ -56,7 +60,9 @@ export const CreateTaskBtn = ({ children }: PropsWithChildren) => {
         <DrawerHeader>
           <DrawerTitle>Create New Task</DrawerTitle>
         </DrawerHeader>
-        <div className="px-4 my-4">{children}</div>
+        <div className="px-4 my-4">
+          <CreateTaskForm submitHandler={onFormSubmit} />
+        </div>
       </DrawerContent>
     </Drawer>
   );

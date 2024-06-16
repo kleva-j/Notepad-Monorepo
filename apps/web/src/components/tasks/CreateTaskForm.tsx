@@ -1,17 +1,19 @@
 "use client";
 
-import type { Column, Priority, Status } from "@/tasks/data";
+import type { CreateTaskSchema } from "@/lib/validation";
 
 import { Textarea } from "@repo/ui/components/ui/textarea";
+import { api } from "@repo/backend/convex/_generated/api";
 import { Button } from "@repo/ui/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@repo/ui/components/ui/input";
 import { Loader2, Minus, Plus } from "lucide-react";
 import { priorities, statuses } from "@/tasks/data";
+import { createTaskSchema } from "@/lib/validation";
+import { useState, useTransition } from "react";
+import { useMutation } from "convex/react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
 
 import {
   SelectContent,
@@ -36,70 +38,33 @@ import {
   Form,
 } from "@repo/ui/components/ui/form";
 
-const createTaskFormSchema = z.object({
-  title: z
-    .string()
-    .min(1, { message: "Title is required" })
-    .max(100, { message: "Title is too long" }),
-  description: z
-    .string()
-    .max(1000, { message: "Description is too long" })
-    .optional(),
-  recordId: z.string({ required_error: "Please provide a valid Record-Id." }),
-  column: z
-    .enum(["backlog", "todo", "in progress", "completed"], {
-      required_error: "Please select a column field.",
-    })
-    .default("backlog"),
-  status: z
-    .enum(["pending", "doing", "done", "cancelled"], {
-      required_error: "Please select a status field.",
-    })
-    .default("pending"),
-  priority: z
-    .enum(["low", "normal", "high", "urgent"], {
-      required_error: "Please select a priority field.",
-    })
-    .default("normal"),
-  createdAt: z
-    .date({ required_error: "Please provide a valid date." })
-    .default(new Date()),
-  tags: z.array(z.string()).optional(),
-});
+type ComponentProps = { submitHandler: () => void | Promise<void> };
 
-type createTaskFormInput = z.input<typeof createTaskFormSchema>;
-type createTaskFormOutput = z.infer<typeof createTaskFormSchema>;
-
-const formValues: createTaskFormInput = {
-  title: "",
-  description: "",
-  recordId: "",
-  column: "backlog" as Column,
-  status: "pending" as Status,
-  priority: "normal" as Priority,
-  createdAt: new Date(),
-  tags: [],
-};
-
-export function CreateTaskForm() {
+export function CreateTaskForm({ submitHandler }: ComponentProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isLoading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const _createTask = useMutation(api.notes.createActionItem);
 
-  const form = useForm<createTaskFormOutput>({
-    resolver: zodResolver(createTaskFormSchema),
-    defaultValues: formValues,
+  const form = useForm<CreateTaskSchema>({
+    resolver: zodResolver(createTaskSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      column: "backlog",
+      status: "pending",
+      priority: "normal",
+      noteId: "",
+      tags: [],
+    },
   });
 
-  function onSubmit(data: createTaskFormOutput) {
-    console.log(data);
-    setLoading(true);
-    const promise = new Promise<void>((resolve) => setTimeout(resolve, 1500));
-    toast.promise(promise, {
-      loading: "Saving...",
-      success: "New task created",
-      error: "Could not create task",
+  function onSubmit(data: CreateTaskSchema) {
+    startTransition(() => {
+
+      toast.success("Task created 🎉");
+
+      submitHandler();
     });
-    setLoading(false);
   }
 
   const CollapsibleIcon = isCollapsed ? Minus : Plus;
@@ -168,7 +133,11 @@ export function CreateTaskForm() {
                         <SelectGroup>
                           <SelectLabel>Status</SelectLabel>
                           {statuses.map(({ label, value }) => (
-                            <SelectItem key={value} value={value}>
+                            <SelectItem
+                              key={value}
+                              value={value}
+                              className="capitalize"
+                            >
                               {label}
                             </SelectItem>
                           ))}
@@ -199,7 +168,11 @@ export function CreateTaskForm() {
                         <SelectGroup>
                           <SelectLabel>Priority</SelectLabel>
                           {priorities.map(({ label, value }) => (
-                            <SelectItem key={value} value={value}>
+                            <SelectItem
+                              key={value}
+                              value={value}
+                              className="capitalize"
+                            >
                               {label}
                             </SelectItem>
                           ))}
@@ -215,8 +188,13 @@ export function CreateTaskForm() {
         </Collapsible>
 
         <div className="flex justify-end">
-          <Button type="submit">
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button type="submit" disabled={isPending}>
+            {isPending && (
+              <Loader2
+                className="mr-2 h-4 w-4 animate-spin"
+                aria-hidden="true"
+              />
+            )}
             Create
           </Button>
         </div>
