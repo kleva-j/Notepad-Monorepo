@@ -5,7 +5,6 @@ import { Doc, Id } from "./_generated/dataModel";
 import {
   internalMutation,
   internalQuery,
-  mutation,
   QueryCtx,
   query,
 } from "./_generated/server";
@@ -16,28 +15,28 @@ import {
  *
  * Like all Convex queries, errors on expired Clerk token.
  */
-export const userLoginStatus = query(
-  async (
-    ctx
-  ): Promise<
-    | ["No JWT Token", null]
-    | ["No Clerk User", null]
-    | ["Logged In", Doc<"users">]
-  > => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      // no JWT token, user hasn't completed login flow yet
-      return ["No JWT Token", null];
-    }
-    if (identity === null) {
-      // If Clerk has not told us about this user we're still waiting for the
-      // webhook notification.
-      return ["No Clerk User", null];
-    }
-    const user = await userQuery(ctx, identity.subject);
-    return ["Logged In", user!];
-  }
-);
+// export const userLoginStatus = query(
+//   async (
+//     ctx
+//   ): Promise<
+//     | ["No JWT Token", null]
+//     | ["No Clerk User", null]
+//     | ["Logged In", Doc<"users">]
+//   > => {
+//     const identity = await ctx.auth.getUserIdentity();
+//     if (!identity) {
+//       // no JWT token, user hasn't completed login flow yet
+//       return ["No JWT Token", null];
+//     }
+//     if (identity === null) {
+//       // If Clerk has not told us about this user we're still waiting for the
+//       // webhook notification.
+//       return ["No Clerk User", null];
+//     }
+//     const user = await userQuery(ctx, identity.subject);
+//     return ["Logged In", user!];
+//   }
+// );
 
 /** The current user, containing user preferences and Clerk user info. */
 export const currentUser = query((ctx: QueryCtx) => getCurrentUser(ctx));
@@ -57,8 +56,6 @@ export const updateOrCreateUser = internalMutation({
     const userRecord = await userQuery(ctx, clerkUser.id);
 
     if (userRecord === null) {
-      const colors = ["red", "green", "blue"];
-      // const color = colors[Math.floor(Math.random() * colors.length)];
       await ctx.db.insert("users", { clerkUser });
     } else {
       await ctx.db.patch(userRecord._id, { clerkUser });
@@ -80,17 +77,7 @@ export const deleteUser = internalMutation({
   },
 });
 
-// /** Set the user preference of the color of their text. */
-// export const setColor = mutation({
-//   args: { color: v.string() },
-//   handler: async (ctx, { color }) => {
-//     const user = await mustGetCurrentUser(ctx);
-//     await ctx.db.patch(user._id, { color });
-//   },
-// });
-
 // Helpers
-
 export async function userQuery(
   ctx: QueryCtx,
   clerkUserId: string

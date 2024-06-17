@@ -13,7 +13,6 @@ export default defineSchema({
   users: defineTable({
     // this is UserJSON from @clerk/backend
     clerkUser: v.any(),
-    // color: v.string(),
   }).index("by_clerk_id", ["clerkUser.id"]),
   actionItems: defineTable({
     noteId: v.id("notes"),
