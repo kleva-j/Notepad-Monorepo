@@ -40,14 +40,14 @@ export const Columns: ColumnDef<TableTask>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "recordId",
+    accessorKey: "noteId",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Record ID
+          Record/Note ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

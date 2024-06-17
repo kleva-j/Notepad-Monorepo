@@ -1,13 +1,13 @@
 "use client";
 
-import { DataTableFacetedFilter } from "@/components/tasks/TableFacetedFilter";
+import { DataTableFacetedFilter } from "@/tasks/TableFacetedFilter";
 import { TableData, priorities, statuses } from "@/tasks/data";
+import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
-import { Columns } from "@/components/tasks/TableColumn";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
 import { ChevronDown, Cross } from "lucide-react";
-import { Preloaded } from "convex/react";
+import { Columns } from "@/tasks/TableColumn";
 import { useState } from "react";
 import {
   getPaginationRowModel,
@@ -40,6 +40,7 @@ type TableViewProps = {
 };
 
 export function TableView({ preloadedTasks }: TableViewProps) {
+  const tasks = usePreloadedQuery(preloadedTasks);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});

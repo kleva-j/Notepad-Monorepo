@@ -66,7 +66,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "pending",
     priority: "urgent",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
     dueDate: getRandomDate(new Date(2022, 0, 1), new Date()),
@@ -77,7 +77,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "doing",
     priority: "low",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -87,7 +87,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "done",
     priority: "normal",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -97,7 +97,7 @@ export const TableData: TableTask[] = [
     column: "backlog",
     status: "pending",
     priority: "normal",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -107,7 +107,7 @@ export const TableData: TableTask[] = [
     column: "todo",
     status: "done",
     priority: "low",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -117,7 +117,7 @@ export const TableData: TableTask[] = [
     column: "todo",
     status: "pending",
     priority: "urgent",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -127,7 +127,7 @@ export const TableData: TableTask[] = [
     column: "todo",
     status: "pending",
     priority: "urgent",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -137,7 +137,7 @@ export const TableData: TableTask[] = [
     column: "in progress",
     status: "doing",
     priority: "urgent",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -147,7 +147,7 @@ export const TableData: TableTask[] = [
     column: "in progress",
     status: "doing",
     priority: "urgent",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -157,7 +157,7 @@ export const TableData: TableTask[] = [
     column: "completed",
     status: "done",
     priority: "urgent",
-    recordId: generateId(),
+    noteId: generateId(),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -227,7 +227,7 @@ export type TableTask = BaseTaskProps & {
   dueDate?: string | null;
   tags: string[];
   description?: string;
-  recordId: string;
+  noteId: string;
 };
 
 export type Task = {
@@ -236,7 +236,7 @@ export type Task = {
   column: Column;
   status: Status;
   priority: Priority;
-  createdAt?: string;
+  createdAt?: string | Date;
   updatedAt?: string | null;
   completedAt?: string | null;
   dueDate?: string | null;

@@ -1,4 +1,4 @@
-import type { TableTask } from "@/tasks/data";
+import type { Task } from "@/tasks/data";
 
 import { ChevronsUpDown, Calendar } from "lucide-react";
 import { Badge } from "@repo/ui/components/ui/badge";
@@ -12,9 +12,7 @@ import {
   Table,
 } from "@repo/ui/components/ui/table";
 
-type TaskDetailsProps = { task: TableTask };
-
-export function TaskDetails({ task }: TaskDetailsProps) {
+export function TaskDetails({ task }: { task: Task }) {
   const { title, description, status, priority, noteId, dueDate } = task;
 
   const Icon =
@@ -54,7 +52,7 @@ export function TaskDetails({ task }: TaskDetailsProps) {
           <TableBody>
             <TableRow className="border-transparent hover:bg-transparent h-8">
               <TableCell className="text-sm font-normal text-slate-500 dark:text-neutral-400 p-0">
-                Record ID
+                Record/Note ID
               </TableCell>
               <TableCell className="p-0">{noteId}</TableCell>
             </TableRow>
