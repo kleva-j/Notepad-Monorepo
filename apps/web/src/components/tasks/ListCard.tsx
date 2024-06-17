@@ -1,4 +1,4 @@
-import type { TableTask } from "@/tasks/data"; 
+import type { Task } from "@/tasks/data"; 
 
 import { TableCell, TableRow } from "@repo/ui/components/ui/table";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
@@ -6,7 +6,7 @@ import { Badge } from "@repo/ui/components/ui/badge";
 import { cn } from "@repo/ui/lib/utils";
 
 type ListCardProps = {
-  task: TableTask;
+  task: Task;
   checked: boolean;
   handleClick: () => void;
   onCheckChange: (id: string) => void;

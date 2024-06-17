@@ -58,7 +58,7 @@ export const statuses = [
   },
 ];
 
-export const TableData: TableTask[] = [
+export const TableData: Task[] = [
   {
     id: "1",
     title: "Look into render bug in dashboard",
@@ -236,7 +236,7 @@ export type Task = {
   column: Column;
   status: Status;
   priority: Priority;
-  createdAt?: string | Date;
+  createdAt: string;
   updatedAt?: string | null;
   completedAt?: string | null;
   dueDate?: string | null;
@@ -261,10 +261,10 @@ export const getCardByColumn = () => {
 };
 
 export interface IListColumn {
-  backlog: TableTask[];
-  todo: TableTask[];
-  "in progress": TableTask[];
-  completed: TableTask[];
+  backlog: Task[];
+  todo: Task[];
+  "in progress": Task[];
+  completed: Task[];
 }
 
 const listColumn: IListColumn = {

@@ -1,4 +1,4 @@
-import type { TableTask } from "@/tasks/data";
+import type { Task } from "@/tasks/data";
 
 import { MoreHorizontal, ArrowUpDown, Flag } from "lucide-react";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
@@ -16,7 +16,7 @@ import {
   DropdownMenu,
 } from "@repo/ui/components/ui/dropdown-menu";
 
-export const Columns: ColumnDef<TableTask>[] = [
+export const Columns: ColumnDef<Task>[] = [
   {
     id: "select",
     header: ({ table }) => (

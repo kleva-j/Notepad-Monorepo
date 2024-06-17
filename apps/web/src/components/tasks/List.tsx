@@ -1,4 +1,4 @@
-import { ListColumnGroup } from "@/components/tasks/ListColumnGroup";
+import { ListColumnGroup } from "@/tasks/ListColumnGroup";
 import { getTableDataByColumn } from "@/tasks/data";
 
 const { todo, completed, backlog, ...rest } = getTableDataByColumn();

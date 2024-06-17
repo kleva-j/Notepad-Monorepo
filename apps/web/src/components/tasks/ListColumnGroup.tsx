@@ -1,11 +1,13 @@
 "use client";
 
+import type { Task } from "@/tasks/data";
+
 import { TaskDetails } from "@/components/tasks/TaskDetails";
 import { ListColumn } from "@/components/tasks/ListColumn";
 import { Toggle } from "@repo/ui/components/ui/toggle";
-import { IListColumn, TableTask } from "@/tasks/data";
 import { Input } from "@repo/ui/components/ui/input";
 import { useMediaQuery } from "usehooks-ts";
+import { IListColumn } from "@/tasks/data";
 import { CheckCheck } from "lucide-react";
 import { cn } from "@repo/ui/lib/utils";
 import { useState } from "react";
@@ -22,12 +24,12 @@ import {
 } from "@repo/ui/components/ui/drawer";
 
 type ColumnGroupProps = {
-  data: Omit<IListColumn, "in progress"> & { inProgress: TableTask[] };
+  data: Omit<IListColumn, "in progress"> & { inProgress: Task[] };
 };
 
 export function ListColumnGroup({ data }: ColumnGroupProps) {
   const { backlog, todo, completed: done, inProgress } = data;
-  const [selectedTask, setSelectedTask] = useState<TableTask>();
+  const [selectedTask, setSelectedTask] = useState<Task>();
   const [showDetails, setShowDetails] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -61,7 +63,7 @@ export function ListColumnGroup({ data }: ColumnGroupProps) {
     </Toggle>
   );
 
-  const handleTaskClick = (task: TableTask) => {
+  const handleTaskClick = (task: Task) => {
     setSelectedTask(task);
     setShowDetails(true);
   };

@@ -1,12 +1,13 @@
 "use client";
 
+import type { Task } from "@/tasks/data";
+
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { useMemo, useState, useCallback } from "react";
 import { ListCard } from "@/components/tasks/ListCard";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { ChevronUp, PlusIcon } from "lucide-react";
-import { TableTask } from "@/tasks/data";
 import { cn } from "@repo/ui/lib/utils";
 import { motion } from "framer-motion";
 
@@ -27,7 +28,7 @@ type ColumnProps = {
   title: string;
   tasks: any[];
   accentColor?: string;
-  handleTaskClick: (task: TableTask) => void;
+  handleTaskClick: (task: Task) => void;
 };
 
 const MotionChevron = motion(ChevronUp);
