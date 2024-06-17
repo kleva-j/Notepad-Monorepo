@@ -13,7 +13,7 @@ export default defineSchema({
   users: defineTable({
     // this is UserJSON from @clerk/backend
     clerkUser: v.any(),
-    color: v.string(),
+    // color: v.string(),
   }).index("by_clerk_id", ["clerkUser.id"]),
   actionItems: defineTable({
     noteId: v.id("notes"),
@@ -24,6 +24,8 @@ export default defineSchema({
     status: v.string(),
     priority: v.string(),
     tags: v.optional(v.array(v.string())),
+    dueDate: v.optional(v.string()),
+    completedAt: v.optional(v.string()),
   })
     .index("by_noteId", ["noteId"])
     .index("by_userId", ["userId"]),

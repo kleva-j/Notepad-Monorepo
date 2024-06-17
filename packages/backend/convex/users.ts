@@ -58,8 +58,8 @@ export const updateOrCreateUser = internalMutation({
 
     if (userRecord === null) {
       const colors = ["red", "green", "blue"];
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      await ctx.db.insert("users", { clerkUser, color });
+      // const color = colors[Math.floor(Math.random() * colors.length)];
+      await ctx.db.insert("users", { clerkUser });
     } else {
       await ctx.db.patch(userRecord._id, { clerkUser });
     }
@@ -80,14 +80,14 @@ export const deleteUser = internalMutation({
   },
 });
 
-/** Set the user preference of the color of their text. */
-export const setColor = mutation({
-  args: { color: v.string() },
-  handler: async (ctx, { color }) => {
-    const user = await mustGetCurrentUser(ctx);
-    await ctx.db.patch(user._id, { color });
-  },
-});
+// /** Set the user preference of the color of their text. */
+// export const setColor = mutation({
+//   args: { color: v.string() },
+//   handler: async (ctx, { color }) => {
+//     const user = await mustGetCurrentUser(ctx);
+//     await ctx.db.patch(user._id, { color });
+//   },
+// });
 
 // Helpers
 
