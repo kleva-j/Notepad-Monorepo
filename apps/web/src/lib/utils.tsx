@@ -2,10 +2,12 @@ import type { IKanbanColumn, IListColumn } from "@/types/tasks";
 
 import { kanbanColumn, listColumn } from "@/lib/constant";
 import { DEFAULT_CARDS, TableData } from "@/tasks/data";
-import { customAlphabet } from "nanoid"
+import { customAlphabet } from "nanoid";
 
 export function getRandomDate(start: Date, end: Date): string {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toISOString();
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  ).toISOString();
 }
 
 export const getCardByColumn = () => {
@@ -24,10 +26,9 @@ export const getTableDataByColumn = () => {
   return cardsByColumn;
 };
 
-
 const prefixes = {
   task: "tsk",
-}
+};
 
 interface GenerateIdOptions {
   /**
@@ -35,13 +36,13 @@ interface GenerateIdOptions {
    * @default 16
    * @example 16 => "abc123def456ghi7"
    * */
-  length?: number
+  length?: number;
   /**
    * The separator to use between the prefix and the generated ID.
    * @default "_"
    * @example "_" => "str_abc123"
    * */
-  separator?: string
+  separator?: string;
 }
 
 /**
@@ -60,7 +61,6 @@ export function generateId(
   const id = customAlphabet(
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     length
-  )()
-  return prefix ? `${prefixes[prefix]}${separator}${id}` : id
+  )();
+  return prefix ? `${prefixes[prefix]}${separator}${id}` : id;
 }
-
