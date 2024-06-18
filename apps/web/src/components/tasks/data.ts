@@ -1,7 +1,6 @@
 import type { Task } from "@/types/tasks";
 
-import { getRandomDate } from "@/lib/utils";
-import { generateId } from "@/lib/id";
+import { getRandomDate, generateId } from "@/lib/utils";
 
 export const TableData: Task[] = [
   {
