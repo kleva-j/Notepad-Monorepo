@@ -1,15 +1,13 @@
 "use client";
 
-import type { BaseTaskProps } from "@/tasks/data";
+import type { ColumnType } from "@/types/tasks";
 
 import { Card } from "@repo/ui/components/ui/card";
 import { motion } from "framer-motion";
 
 const MotionCard = motion(Card);
 
-export const KanbanCard = (props: BaseTaskProps) => {
-  const { id, title, column } = props;
-
+export const KanbanCard = ({ id, title, column }: ColumnType) => {
   return (
     <>
       <div

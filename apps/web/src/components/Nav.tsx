@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { LayoutDashboard, AlignStartHorizontal } from "lucide-react";
-import { containerVariants, svgVariants } from "@/lib/utils";
+import { containerVariants, svgVariants } from "@/lib/variants";
 import { Button } from "@repo/ui/components/ui/button";
 import { ProjectNav } from "@/components/ProjectNav";
 import { NavLink } from "@/components/Navlink";

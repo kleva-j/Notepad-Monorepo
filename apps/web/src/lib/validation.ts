@@ -1,4 +1,4 @@
-import { COLUMN, STATUS, PRIORITY } from "@/tasks/data";
+import { COLUMN, STATUS, PRIORITY } from "@/lib/constant";
 import { z } from "zod";
 
 export const searchParamsSchema = z.object({

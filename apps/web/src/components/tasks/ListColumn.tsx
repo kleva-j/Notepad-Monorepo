@@ -1,13 +1,13 @@
 "use client";
 
-import type { Task } from "@/tasks/data";
+import type { Task } from "@/types/tasks";
 
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { useMemo, useState, useCallback } from "react";
-import { ListCard } from "@/components/tasks/ListCard";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { ChevronUp, PlusIcon } from "lucide-react";
+import { ListCard } from "@/tasks/ListCard";
 import { cn } from "@repo/ui/lib/utils";
 import { motion } from "framer-motion";
 

@@ -1,13 +1,14 @@
-import { KanbanCard } from "@/components/tasks/Card";
+import type { ColumnType as Card } from "@/types/tasks";
+
 import { Badge } from "@repo/ui/components/ui/badge";
-import { BaseTaskProps } from "@/tasks/data";
+import { KanbanCard } from "@/tasks/Card";
 import { cn } from "@repo/ui/lib/utils";
 
 type ColumnProps = {
   title: string;
   column: string;
   headingColor: string;
-  cards: BaseTaskProps[];
+  cards: Card[];
 };
 
 export const Column = (props: ColumnProps) => {
@@ -21,7 +22,7 @@ export const Column = (props: ColumnProps) => {
       </div>
       <div className="border-teal-400">
         <ul className="flex flex-col gap-y-0.5">
-          {cards.map((card: any) => (
+          {cards.map((card: Card) => (
             <KanbanCard
               id={card.id}
               key={card.id}

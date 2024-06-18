@@ -1,13 +1,14 @@
 "use client";
 
 import { DataTableFacetedFilter } from "@/tasks/TableFacetedFilter";
-import { TableData, priorities, statuses } from "@/tasks/data";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { Button } from "@repo/ui/components/ui/button";
+import { priorities, statuses } from "@/lib/constant";
 import { Input } from "@repo/ui/components/ui/input";
 import { ChevronDown, Cross } from "lucide-react";
 import { Columns } from "@/tasks/TableColumn";
+import { TableData } from "@/tasks/data";
 import { useState } from "react";
 import {
   getPaginationRowModel,
