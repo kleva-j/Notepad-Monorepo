@@ -1,11 +1,11 @@
-import { CreateTaskModal } from "@/components/tasks/CreateTaskModal";
 import { Separator } from "@repo/ui/components/ui/separator";
+import { CreateTaskModal } from "@/tasks/CreateTaskModal";
 import { api } from "@repo/backend/convex/_generated/api";
-import { KanbanBoard } from "@/components/tasks/Kanban";
-import { TableView } from "@/components/tasks/Table";
-import { ListView } from "@/components/tasks/List";
 import { preloadQuery } from "convex/nextjs";
+import { KanbanBoard } from "@/tasks/Kanban";
 import { getAuthToken } from "@/lib/auth";
+import { TableView } from "@/tasks/Table";
+import { ListView } from "@/tasks/List";
 import {
   AlignVerticalDistributeStart,
   AlignStartHorizontal,

@@ -2,7 +2,7 @@
 import type { FC } from "react";
 
 import { Input } from "@repo/ui/components/ui/input";
-import { projectNavVariants } from "@/lib/utils";
+import { projectNavVariants } from "@/lib/variants";
 import { NavLink } from "@/components/Navlink";
 import { cn } from "@repo/ui/lib/utils";
 import { motion } from "framer-motion";

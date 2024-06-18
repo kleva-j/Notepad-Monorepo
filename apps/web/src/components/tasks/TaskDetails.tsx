@@ -1,8 +1,8 @@
-import type { Task } from "@/tasks/data";
+import type { Task } from "@/types/tasks";
 
 import { ChevronsUpDown, Calendar } from "lucide-react";
 import { Badge } from "@repo/ui/components/ui/badge";
-import { priorities } from "@/tasks/data";
+import { priorities } from "@/lib/constant";
 import { cn } from "@repo/ui/lib/utils";
 
 import {

@@ -1,5 +1,5 @@
 import { ListColumnGroup } from "@/tasks/ListColumnGroup";
-import { getTableDataByColumn } from "@/tasks/data";
+import { getTableDataByColumn } from "@/lib/utils";
 
 const { todo, completed, backlog, ...rest } = getTableDataByColumn();
 

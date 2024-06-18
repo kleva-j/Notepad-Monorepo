@@ -1,68 +1,14 @@
+import type { Task } from "@/types/tasks";
+
 import { getRandomDate } from "@/lib/utils";
 import { generateId } from "@/lib/id";
-import { z } from "zod";
-import {
-  ArrowRightIcon,
-  ArrowDownIcon,
-  ArrowUpIcon,
-  CircleCheck,
-  ChevronDown,
-  CircleIcon,
-  ChevronsUp,
-  ChevronUp,
-  CircleX,
-  Timer,
-} from "lucide-react";
-
-export const priorities = [
-  {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
-    icon2: ChevronDown,
-  },
-  {
-    label: "Normal",
-    value: "normal",
-    icon: ArrowRightIcon,
-    icon2: ChevronUp,
-  },
-  {
-    label: "Urgent",
-    value: "urgent",
-    icon: ArrowUpIcon,
-    icon2: ChevronsUp,
-  },
-];
-
-export const statuses = [
-  {
-    value: "pending",
-    label: "Pending",
-    icon: CircleIcon,
-  },
-  {
-    value: "doing",
-    label: "Doing",
-    icon: Timer,
-  },
-  {
-    value: "done",
-    label: "Done",
-    icon: CircleCheck,
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-    icon: CircleX,
-  },
-];
 
 export const TableData: Task[] = [
   {
     id: "1",
     title: "Look into render bug in dashboard",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     column: "backlog",
     status: "pending",
     priority: "urgent",
@@ -192,92 +138,3 @@ export const DEFAULT_CARDS = [
     column: "done",
   },
 ];
-
-export type BaseTaskProps = {
-  id: string;
-  title: string;
-  column: string;
-};
-
-export interface IKanbanColumn {
-  backlog: BaseTaskProps[];
-  todo: BaseTaskProps[];
-  doing: BaseTaskProps[];
-  done: BaseTaskProps[];
-}
-
-export const COLUMN = ["backlog", "todo", "in progress", "completed"] as const;
-export const STATUS = ["pending", "doing", "done", "cancelled"] as const;
-export const PRIORITY = ["low", "normal", "high", "urgent"] as const;
-
-export const columnEnum = z.enum(COLUMN);
-export const statusEnum = z.enum(STATUS);
-export const priorityEnum = z.enum(PRIORITY);
-
-export type Column = z.infer<typeof columnEnum>;
-export type Status = z.infer<typeof statusEnum>;
-export type Priority = z.infer<typeof priorityEnum>;
-
-export type TableTask = BaseTaskProps & {
-  status: Status;
-  priority: Priority;
-  createdAt: string;
-  updatedAt?: string | null;
-  completedAt?: string | null;
-  dueDate?: string | null;
-  tags: string[];
-  description?: string;
-  noteId: string;
-};
-
-export type Task = {
-  id: string;
-  title: string;
-  column: Column;
-  status: Status;
-  priority: Priority;
-  createdAt: string;
-  updatedAt?: string | null;
-  completedAt?: string | null;
-  dueDate?: string | null;
-  tags: string[];
-  description?: string;
-  noteId?: string;
-}
-
-const kanbanColumn: IKanbanColumn = {
-  backlog: [],
-  todo: [],
-  doing: [],
-  done: [],
-};
-
-export const getCardByColumn = () => {
-  const cardsByColumn: IKanbanColumn = DEFAULT_CARDS.reduce((acc, card) => {
-    acc[card.column as keyof IKanbanColumn].push(card);
-    return acc;
-  }, kanbanColumn);
-  return cardsByColumn;
-};
-
-export interface IListColumn {
-  backlog: Task[];
-  todo: Task[];
-  "in progress": Task[];
-  completed: Task[];
-}
-
-const listColumn: IListColumn = {
-  backlog: [],
-  todo: [],
-  "in progress": [],
-  completed: [],
-};
-
-export const getTableDataByColumn = () => {
-  const cardsByColumn: IListColumn = TableData.reduce((acc, card) => {
-    acc[card.column as keyof IListColumn].push(card);
-    return acc;
-  }, listColumn);
-  return cardsByColumn;
-};

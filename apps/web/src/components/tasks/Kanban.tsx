@@ -1,5 +1,5 @@
-import { Column } from "@/components/tasks/KanbanColumn";
-import { getCardByColumn } from "@/tasks/data";
+import { getCardByColumn } from "@/lib/utils";
+import { Column } from "@/tasks/KanbanColumn";
 
 const { todo, doing, done, backlog } = getCardByColumn();
 

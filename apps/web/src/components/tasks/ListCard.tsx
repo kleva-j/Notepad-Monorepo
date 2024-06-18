@@ -1,4 +1,4 @@
-import type { Task } from "@/tasks/data"; 
+import type { Task } from "@/types/tasks";
 
 import { TableCell, TableRow } from "@repo/ui/components/ui/table";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";

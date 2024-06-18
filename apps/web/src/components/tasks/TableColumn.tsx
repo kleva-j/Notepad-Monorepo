@@ -1,4 +1,4 @@
-import type { Task } from "@/tasks/data";
+import type { Task } from "@/types/tasks";
 
 import { MoreHorizontal, ArrowUpDown, Flag } from "lucide-react";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";

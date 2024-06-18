@@ -1,13 +1,12 @@
 "use client";
 
-import type { Task } from "@/tasks/data";
+import type { Task, IListColumn } from "@/types/tasks";
 
-import { TaskDetails } from "@/components/tasks/TaskDetails";
-import { ListColumn } from "@/components/tasks/ListColumn";
 import { Toggle } from "@repo/ui/components/ui/toggle";
 import { Input } from "@repo/ui/components/ui/input";
+import { TaskDetails } from "@/tasks/TaskDetails";
+import { ListColumn } from "@/tasks/ListColumn";
 import { useMediaQuery } from "usehooks-ts";
-import { IListColumn } from "@/tasks/data";
 import { CheckCheck } from "lucide-react";
 import { cn } from "@repo/ui/lib/utils";
 import { useState } from "react";
