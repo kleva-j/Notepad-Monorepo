@@ -1,6 +1,7 @@
 import type { Task } from "@/types/tasks";
 
-import { getRandomDate, generateId } from "@/lib/utils";
+import { getRandomDate } from "@/lib/utils";
+import { generateId } from "@/lib/id";
 
 export const TableData: Task[] = [
   {
@@ -11,7 +12,7 @@ export const TableData: Task[] = [
     column: "backlog",
     status: "pending",
     priority: "urgent",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
     dueDate: getRandomDate(new Date(2022, 0, 1), new Date()),
@@ -22,7 +23,7 @@ export const TableData: Task[] = [
     column: "backlog",
     status: "doing",
     priority: "low",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -32,7 +33,7 @@ export const TableData: Task[] = [
     column: "backlog",
     status: "done",
     priority: "normal",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -42,7 +43,7 @@ export const TableData: Task[] = [
     column: "backlog",
     status: "pending",
     priority: "normal",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -52,7 +53,7 @@ export const TableData: Task[] = [
     column: "todo",
     status: "done",
     priority: "low",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -62,7 +63,7 @@ export const TableData: Task[] = [
     column: "todo",
     status: "pending",
     priority: "urgent",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -72,7 +73,7 @@ export const TableData: Task[] = [
     column: "todo",
     status: "pending",
     priority: "urgent",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -82,7 +83,7 @@ export const TableData: Task[] = [
     column: "in progress",
     status: "doing",
     priority: "urgent",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -92,7 +93,7 @@ export const TableData: Task[] = [
     column: "in progress",
     status: "doing",
     priority: "urgent",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
@@ -102,7 +103,7 @@ export const TableData: Task[] = [
     column: "completed",
     status: "done",
     priority: "urgent",
-    noteId: generateId(),
+    noteId: generateId("task"),
     createdAt: getRandomDate(new Date(2022, 0, 1), new Date()),
     tags: [],
   },
