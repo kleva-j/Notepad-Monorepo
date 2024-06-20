@@ -25,3 +25,5 @@ export interface DataTableFilterOption<TData> {
   filterOperator?: string;
   isMulti?: boolean;
 }
+
+export type IconProps = React.SVGProps<SVGSVGElement>; 

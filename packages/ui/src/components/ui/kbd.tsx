@@ -1,3 +1,5 @@
+"use client";
+
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
 
@@ -30,7 +32,7 @@ export interface KbdProps
   abbrTitle?: string;
 }
 
-const Kbd = forwardRef<HTMLUnknownElement, KbdProps>(
+export const Kbd = forwardRef<HTMLUnknownElement, KbdProps>(
   ({ abbrTitle, children, className, variant, ...props }, ref) => {
     return (
       <kbd
@@ -50,5 +52,3 @@ const Kbd = forwardRef<HTMLUnknownElement, KbdProps>(
   }
 );
 Kbd.displayName = "Kbd";
-
-export { Kbd };
